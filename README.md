@@ -105,63 +105,63 @@ fmt.Println(value) // 5
 
 All quantities are stored internally in a base unit for their dimension:
 
-- Mass: kilogram
-- Length: meter
+- Acceleration: meter per second squared
+- Angle: radian
 - Area: square meter
+- Apparent power: volt-ampere
+- Charge: coulomb
+- Current: ampere
+- Digital: bit
+- Energy: joule
+- Force: newton
+- Frequency: hertz
+- Illuminance: lux
+- Length: meter
+- Mass: kilogram
+- Pace: second per meter
+- Parts-per: ratio
+- Pieces: piece
+- Power: watt
+- Pressure: pascal
+- Reactive energy: volt-ampere reactive hour
+- Reactive power: volt-ampere reactive
+- Speed: meter per second
+- Temperature: kelvin
+- Time: second
+- Torque: newton-meter
+- Voltage: volt
 - Volume: cubic meter
 - Volume flow rate: cubic meter per second
-- Time: second
-- Frequency: hertz
-- Speed: meter per second
-- Torque: newton-meter
-- Pace: second per meter
-- Pressure: pascal
-- Digital: bit
-- Illuminance: lux
-- Parts-per: ratio
-- Voltage: volt
-- Current: ampere
-- Power: watt
-- Apparent power: volt-ampere
-- Reactive power: volt-ampere reactive
-- Energy: joule
-- Reactive energy: volt-ampere reactive hour
-- Angle: radian
-- Charge: coulomb
-- Force: newton
-- Acceleration: meter per second squared
-- Pieces: piece
-- Temperature: kelvin
 
 ## Examples By Dimension
 
-- Mass: `kg := quant.Pounds(10).To(quant.Kilogram)`
-- Length: `km := quant.Miles(3).To(quant.Kilometer)`
+- Acceleration: `ms2 := quant.GForces(1).To(quant.MeterPerSecondSquared)`
+- Angle: `rad := quant.Degrees(180).To(quant.Radian)`
 - Area: `m2 := quant.Acres(1).To(quant.SquareMeter)`
-- Volume: `l := quant.Gallons(1).To(quant.Liter)`
-- Volume flow rate: `ls := quant.LitersPerMinute(60).To(quant.LiterPerSecond)`
+- Apparent power: `va := quant.MegaVoltAmperes(1).To(quant.VoltAmpere)`
+- Charge: `mc := quant.Coulombs(1).To(quant.Millicoulomb)`
+- Current: `a := quant.Kiloamperes(1).To(quant.Ampere)`
+- Digital: `bytes := quant.Kibibytes(1).To(quant.Byte)`
+- Energy: `j := quant.KilowattHours(1).To(quant.Joule)`
+- Force: `n := quant.KilogramsForce(1).To(quant.Newton)`
+- Frequency: `hz := quant.RevolutionsPerMinute(60).To(quant.Hertz)`
+- Illuminance: `lx := quant.FootCandles(1).To(quant.Lux)`
+- Length: `km := quant.Miles(3).To(quant.Kilometer)`
+- Mass: `kg := quant.Pounds(10).To(quant.Kilogram)`
+- Pace: `spm := quant.MinutesPerKilometer(5).To(quant.SecondPerMeter)`
+- Parts-per: `ppb := quant.PartsPerMillion(1).To(quant.PPB)`
+- Pieces: `pcs := quant.Dozens(1).To(quant.Piece)`
+- Power: `w := quant.HorsepowerValues(1).To(quant.Watt)`
+- Pressure: `pa := quant.Bars(1).To(quant.Pascal)`
+- Reactive energy: `varh := quant.MegaVoltAmpereReactiveHours(1).To(quant.KiloVoltAmpereReactiveHour)`
+- Reactive power: `vars := quant.MegaVoltAmpereReactives(1).To(quant.KiloVoltAmpereReactive)`
+- Speed: `kmh := quant.MetersPerSecond(10).To(quant.KilometerPerHour)`
 - Temperature: `k := quant.DegreesCelsius(25).To(quant.Kelvin)`
 - Time: `years := quant.Decades(1).To(quant.Year)`
-- Frequency: `hz := quant.RevolutionsPerMinute(60).To(quant.Hertz)`
-- Speed: `kmh := quant.MetersPerSecond(10).To(quant.KilometerPerHour)`
 - Torque: `nm := quant.PoundForceFeet(1).To(quant.NewtonMeter)`
-- Pace: `spm := quant.MinutesPerKilometer(5).To(quant.SecondPerMeter)`
-- Pressure: `pa := quant.Bars(1).To(quant.Pascal)`
-- Digital: `bytes := quant.Kibibytes(1).To(quant.Byte)`
-- Illuminance: `lx := quant.FootCandles(1).To(quant.Lux)`
-- Parts-per: `ppb := quant.PartsPerMillion(1).To(quant.PPB)`
 - Voltage: `v := quant.Kilovolts(1).To(quant.Volt)`
-- Current: `a := quant.Kiloamperes(1).To(quant.Ampere)`
-- Power: `w := quant.HorsepowerValues(1).To(quant.Watt)`
-- Apparent power: `va := quant.MegaVoltAmperes(1).To(quant.VoltAmpere)`
-- Reactive power: `vars := quant.MegaVoltAmpereReactives(1).To(quant.KiloVoltAmpereReactive)`
-- Energy: `j := quant.KilowattHours(1).To(quant.Joule)`
-- Reactive energy: `varh := quant.MegaVoltAmpereReactiveHours(1).To(quant.KiloVoltAmpereReactiveHour)`
-- Angle: `rad := quant.Degrees(180).To(quant.Radian)`
-- Charge: `mc := quant.Coulombs(1).To(quant.Millicoulomb)`
-- Force: `n := quant.KilogramsForce(1).To(quant.Newton)`
-- Acceleration: `ms2 := quant.GForces(1).To(quant.MeterPerSecondSquared)`
-- Pieces: `pcs := quant.Dozens(1).To(quant.Piece)`
+- Volume: `l := quant.Gallons(1).To(quant.Liter)`
+- Volume flow rate: `ls := quant.LitersPerMinute(60).To(quant.LiterPerSecond)`
 
 ### Arithmetic
 
