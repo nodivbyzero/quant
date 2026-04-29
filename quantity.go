@@ -241,6 +241,18 @@ func unitSymbol(u any) string {
 		return "min"
 	case any(Hour):
 		return "h"
+	case any(Day):
+		return "d"
+	case any(Week):
+		return "week"
+	case any(Month):
+		return "month"
+	case any(Year):
+		return "year"
+	case any(Decade):
+		return "decade"
+	case any(Century):
+		return "century"
 	case any(Liter):
 		return "l"
 	case any(LiterPerSecond):

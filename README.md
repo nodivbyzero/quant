@@ -141,7 +141,7 @@ All quantities are stored internally in a base unit for their dimension:
 - Volume: `l := quant.Gallons(1).To(quant.Liter)`
 - Volume flow rate: `ls := quant.LitersPerMinute(60).To(quant.LiterPerSecond)`
 - Temperature: `k := quant.DegreesCelsius(25).To(quant.Kelvin)`
-- Time: `minutes := quant.Hours(2).To(quant.Minute)`
+- Time: `years := quant.Decades(1).To(quant.Year)`
 - Frequency: `hz := quant.RevolutionsPerMinute(60).To(quant.Hertz)`
 - Speed: `kmh := quant.MetersPerSecond(10).To(quant.KilometerPerHour)`
 - Torque: `nm := quant.PoundForceFeet(1).To(quant.NewtonMeter)`
@@ -188,7 +188,7 @@ fmt.Println(speed.To(quant.KilometerPerHour)) // 10
 - Volume: `CubicMillimeter`, `CubicCentimeter`, `Milliliter`, `Liter`, `Kiloliter`, `Megaliter`, `Gigaliter`, `CubicMeter`, `CubicKilometer`, `Teaspoon`, `Tablespoon`, `CubicInch`, `FluidOunce`, `Cup`, `Pint`, `Quart`, `Gallon`, `CubicFoot`, `CubicYard`
 - Volume flow rate: `CubicMillimeterPerSecond`, `CubicCentimeterPerSecond`, `MilliliterPerSecond`, `CentiliterPerSecond`, `DeciliterPerSecond`, `LiterPerSecond`, `LiterPerMinute`, `LiterPerHour`, `KiloliterPerSecond`, `KiloliterPerMinute`, `KiloliterPerHour`, `CubicMeterPerSecond`, `CubicMeterPerMinute`, `CubicMeterPerHour`, `CubicKilometerPerSecond`, `TeaspoonPerSecond`, `TablespoonPerSecond`, `CubicInchPerSecond`, `CubicInchPerMinute`, `CubicInchPerHour`, `FluidOuncePerSecond`, `FluidOuncePerMinute`, `FluidOuncePerHour`, `CupPerSecond`, `PintPerSecond`, `PintPerMinute`, `PintPerHour`, `QuartPerSecond`, `GallonPerSecond`, `GallonPerMinute`, `GallonPerHour`, `CubicFootPerSecond`, `CubicFootPerMinute`, `CubicFootPerHour`, `CubicYardPerSecond`, `CubicYardPerMinute`, `CubicYardPerHour`
 - Temperature: `Celsius`, `Fahrenheit`, `Kelvin`, `Rankine`
-- Time: `Nanosecond`, `Microsecond`, `Millisecond`, `Second`, `Minute`, `Hour`, `Day`, `Week`, `Month`, `Year`
+- Time: `Nanosecond`, `Microsecond`, `Millisecond`, `Second`, `Minute`, `Hour`, `Day`, `Week`, `Month`, `Year`, `Decade`, `Century`
 - Frequency: `Hertz`, `Millihertz`, `Kilohertz`, `Megahertz`, `Gigahertz`, `Terahertz`, `RevolutionPerMinute`, `DegreePerSecond`, `RadianPerSecond`
 - Speed: `MeterPerSecond`, `KilometerPerHour`, `MilePerHour`, `MeterPerHour`, `Knot`, `FootPerSecond`, `InchPerHour`, `MillimeterPerHour`
 - Torque: `NewtonMeter`, `PoundForceFoot`
@@ -242,7 +242,7 @@ k := quant.New[quant.Temperature](25, quant.Celsius).To(quant.Kelvin)
 fmt.Printf("%.2f\n", k) // 298.15
 ```
 
-`Month` and `Year` use average Gregorian durations: `365.25 / 12` days and `365.25` days respectively.
+`Month`, `Year`, `Decade`, and `Century` use average Gregorian durations: `365.25 / 12` days, `365.25` days, `10 * 365.25` days, and `100 * 365.25` days respectively.
 
 ## Design Notes
 

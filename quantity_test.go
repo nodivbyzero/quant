@@ -30,6 +30,8 @@ func TestTimeConversion(t *testing.T) {
 	assertConversion[quant.Time](t, 2, quant.Hour, 120.0, quant.Minute)
 	assertConversion[quant.Time](t, 1, quant.Year, 12, quant.Month)
 	assertConversion[quant.Time](t, 1, quant.Millisecond, 1000, quant.Microsecond)
+	assertConversion[quant.Time](t, 1, quant.Decade, 10, quant.Year)
+	assertConversion[quant.Time](t, 1, quant.Century, 10, quant.Decade)
 }
 
 func TestTemperatureConversion(t *testing.T) {

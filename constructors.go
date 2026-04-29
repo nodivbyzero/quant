@@ -194,6 +194,8 @@ func Days(v float64) Quantity[Time]         { return quantityFrom[Time](v, Day) 
 func Weeks(v float64) Quantity[Time]        { return quantityFrom[Time](v, Week) }
 func Months(v float64) Quantity[Time]       { return quantityFrom[Time](v, Month) }
 func Years(v float64) Quantity[Time]        { return quantityFrom[Time](v, Year) }
+func Decades(v float64) Quantity[Time]      { return quantityFrom[Time](v, Decade) }
+func Centuries(v float64) Quantity[Time]    { return quantityFrom[Time](v, Century) }
 
 // Frequency constructors.
 func Hertzes(v float64) Quantity[Frequency]      { return quantityFrom[Frequency](v, Hertz) }

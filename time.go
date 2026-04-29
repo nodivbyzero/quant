@@ -15,4 +15,6 @@ var (
 	Week        = scaleUnit[Time]{factor: secondsPerWeek}
 	Month       = scaleUnit[Time]{factor: secondsPerMonth}
 	Year        = scaleUnit[Time]{factor: secondsPerYear}
+	Decade      = scaleUnit[Time]{factor: 10 * secondsPerYear}
+	Century     = scaleUnit[Time]{factor: 100 * secondsPerYear}
 )
