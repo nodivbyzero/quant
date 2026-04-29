@@ -182,33 +182,33 @@ fmt.Println(speed.To(quant.KilometerPerHour)) // 10
 
 ## Supported Dimensions
 
-- Length: `Nanometer`, `Micrometer`, `Millimeter`, `Centimeter`, `Meter`, `Inch`, `Yard`, `USFoot`, `Foot`, `Fathom`, `Kilometer`, `Mile`, `NauticalMile`
+- Acceleration: `MeterPerSecondSquared`, `GForce`, `StandardGravity`
+- Angle: `Degree`, `Radian`, `Gradian`, `ArcMinute`, `ArcSecond`
 - Area: `SquareMillimeter` (`mm2`), `SquareCentimeter` (`cm2`), `SquareMeter` (`m2`), `Hectare` (`ha`), `SquareKilometer` (`km2`), `SquareInch` (`in2`), `SquareFoot` (`ft2`), `Acre` (`ac`), `SquareMile` (`mi2`)
+- Apparent power: `VoltAmpere`, `MilliVoltAmpere`, `KiloVoltAmpere`, `MegaVoltAmpere`, `GigaVoltAmpere`
+- Charge: `Coulomb`, `Millicoulomb`, `Microcoulomb`, `Nanocoulomb`, `Picocoulomb`
+- Current: `Ampere`, `Milliampere`, `Kiloampere`
+- Digital: `Bit`, `Kilobit`, `Megabit`, `Gigabit`, `Terabit`, `Byte`, `Kilobyte`, `Megabyte`, `Gigabyte`, `Terabyte`, `Kibibyte`, `Mebibyte`, `Gibibyte`, `Tebibyte`
+- Energy: `WattSecond`, `WattMinute`, `MilliwattHour`, `WattHour`, `KilowattHour`, `MegawattHour`, `GigawattHour`, `Joule`, `Kilojoule`, `Megajoule`, `Gigajoule`
+- Force: `Newton`, `Kilonewton`, `PoundForce`, `KilogramForce`
+- Frequency: `Hertz`, `Millihertz`, `Kilohertz`, `Megahertz`, `Gigahertz`, `Terahertz`, `RevolutionPerMinute`, `DegreePerSecond`, `RadianPerSecond`
+- Illuminance: `Lux`, `FootCandle`
+- Length: `Nanometer`, `Micrometer`, `Millimeter`, `Centimeter`, `Meter`, `Inch`, `Yard`, `USFoot`, `Foot`, `Fathom`, `Kilometer`, `Mile`, `NauticalMile`
 - Mass: `Microgram` (`mcg`), `Milligram` (`mg`), `Gram` (`g`), `Kilogram` (`kg`), `Ounce` (`oz`), `Pound` (`lb`), `MetricTon` (`mt`), `Stone` (`st`), `Tonne` (`t`)
-- Volume: `CubicMillimeter`, `CubicCentimeter`, `Milliliter`, `Liter`, `Kiloliter`, `Megaliter`, `Gigaliter`, `CubicMeter`, `CubicKilometer`, `Teaspoon`, `Tablespoon`, `CubicInch`, `FluidOunce`, `Cup`, `Pint`, `Quart`, `Gallon`, `CubicFoot`, `CubicYard`
-- Volume flow rate: `CubicMillimeterPerSecond`, `CubicCentimeterPerSecond`, `MilliliterPerSecond`, `CentiliterPerSecond`, `DeciliterPerSecond`, `LiterPerSecond`, `LiterPerMinute`, `LiterPerHour`, `KiloliterPerSecond`, `KiloliterPerMinute`, `KiloliterPerHour`, `CubicMeterPerSecond`, `CubicMeterPerMinute`, `CubicMeterPerHour`, `CubicKilometerPerSecond`, `TeaspoonPerSecond`, `TablespoonPerSecond`, `CubicInchPerSecond`, `CubicInchPerMinute`, `CubicInchPerHour`, `FluidOuncePerSecond`, `FluidOuncePerMinute`, `FluidOuncePerHour`, `CupPerSecond`, `PintPerSecond`, `PintPerMinute`, `PintPerHour`, `QuartPerSecond`, `GallonPerSecond`, `GallonPerMinute`, `GallonPerHour`, `CubicFootPerSecond`, `CubicFootPerMinute`, `CubicFootPerHour`, `CubicYardPerSecond`, `CubicYardPerMinute`, `CubicYardPerHour`
+- Pace: `SecondPerMeter`, `MinutePerKilometer`, `SecondPerFoot`, `MinutePerMile`
+- Parts-per: `PPM`, `PPB`, `PPT`, `PPQ`
+- Pieces: `Piece`, `BakersDozen`, `Couple`, `DozenDozen`, `Dozen`, `GreatGross`, `Gross`, `HalfDozen`, `LongHundred`, `Ream`, `Score`, `SmallGross`, `Trio`
+- Pressure: `Pascal`, `Hectopascal`, `Kilopascal`, `Megapascal`, `Bar`, `Torr`, `MeterOfWater`, `MillimeterOfMercury`, `PSI`, `KSI`
+- Power: `Watt`, `Milliwatt`, `Kilowatt`, `Megawatt`, `Gigawatt`, `MetricHorsepower`, `BTUPerSecond`, `FootPoundForcePerSecond`, `Horsepower`
+- Reactive power: `VoltAmpereReactive`, `MilliVoltAmpereReactive`, `KiloVoltAmpereReactive`, `MegaVoltAmpereReactive`, `GigaVoltAmpereReactive`
+- Reactive energy: `VoltAmpereReactiveHour`, `MilliVoltAmpereReactiveHour`, `KiloVoltAmpereReactiveHour`, `MegaVoltAmpereReactiveHour`, `GigaVoltAmpereReactiveHour`
+- Speed: `MeterPerSecond`, `KilometerPerHour`, `MilePerHour`, `MeterPerHour`, `Knot`, `FootPerSecond`, `InchPerHour`, `MillimeterPerHour`
 - Temperature: `Celsius`, `Fahrenheit`, `Kelvin`, `Rankine`
 - Time: `Nanosecond`, `Microsecond`, `Millisecond`, `Second`, `Minute`, `Hour`, `Day`, `Week`, `Month`, `Year`, `Decade`, `Century`
-- Frequency: `Hertz`, `Millihertz`, `Kilohertz`, `Megahertz`, `Gigahertz`, `Terahertz`, `RevolutionPerMinute`, `DegreePerSecond`, `RadianPerSecond`
-- Speed: `MeterPerSecond`, `KilometerPerHour`, `MilePerHour`, `MeterPerHour`, `Knot`, `FootPerSecond`, `InchPerHour`, `MillimeterPerHour`
 - Torque: `NewtonMeter`, `PoundForceFoot`
-- Pace: `SecondPerMeter`, `MinutePerKilometer`, `SecondPerFoot`, `MinutePerMile`
-- Pressure: `Pascal`, `Hectopascal`, `Kilopascal`, `Megapascal`, `Bar`, `Torr`, `MeterOfWater`, `MillimeterOfMercury`, `PSI`, `KSI`
-- Digital: `Bit`, `Kilobit`, `Megabit`, `Gigabit`, `Terabit`, `Byte`, `Kilobyte`, `Megabyte`, `Gigabyte`, `Terabyte`, `Kibibyte`, `Mebibyte`, `Gibibyte`, `Tebibyte`
-- Illuminance: `Lux`, `FootCandle`
-- Parts-per: `PPM`, `PPB`, `PPT`, `PPQ`
 - Voltage: `Volt`, `Millivolt`, `Kilovolt`
-- Current: `Ampere`, `Milliampere`, `Kiloampere`
-- Power: `Watt`, `Milliwatt`, `Kilowatt`, `Megawatt`, `Gigawatt`, `MetricHorsepower`, `BTUPerSecond`, `FootPoundForcePerSecond`, `Horsepower`
-- Apparent power: `VoltAmpere`, `MilliVoltAmpere`, `KiloVoltAmpere`, `MegaVoltAmpere`, `GigaVoltAmpere`
-- Reactive power: `VoltAmpereReactive`, `MilliVoltAmpereReactive`, `KiloVoltAmpereReactive`, `MegaVoltAmpereReactive`, `GigaVoltAmpereReactive`
-- Energy: `WattSecond`, `WattMinute`, `MilliwattHour`, `WattHour`, `KilowattHour`, `MegawattHour`, `GigawattHour`, `Joule`, `Kilojoule`, `Megajoule`, `Gigajoule`
-- Reactive energy: `VoltAmpereReactiveHour`, `MilliVoltAmpereReactiveHour`, `KiloVoltAmpereReactiveHour`, `MegaVoltAmpereReactiveHour`, `GigaVoltAmpereReactiveHour`
-- Angle: `Degree`, `Radian`, `Gradian`, `ArcMinute`, `ArcSecond`
-- Charge: `Coulomb`, `Millicoulomb`, `Microcoulomb`, `Nanocoulomb`, `Picocoulomb`
-- Force: `Newton`, `Kilonewton`, `PoundForce`, `KilogramForce`
-- Acceleration: `MeterPerSecondSquared`, `GForce`, `StandardGravity`
-- Pieces: `Piece`, `BakersDozen`, `Couple`, `DozenDozen`, `Dozen`, `GreatGross`, `Gross`, `HalfDozen`, `LongHundred`, `Ream`, `Score`, `SmallGross`, `Trio`
+- Volume: `CubicMillimeter`, `CubicCentimeter`, `Milliliter`, `Liter`, `Kiloliter`, `Megaliter`, `Gigaliter`, `CubicMeter`, `CubicKilometer`, `Teaspoon`, `Tablespoon`, `CubicInch`, `FluidOunce`, `Cup`, `Pint`, `Quart`, `Gallon`, `CubicFoot`, `CubicYard`
+- Volume flow rate: `CubicMillimeterPerSecond`, `CubicCentimeterPerSecond`, `MilliliterPerSecond`, `CentiliterPerSecond`, `DeciliterPerSecond`, `LiterPerSecond`, `LiterPerMinute`, `LiterPerHour`, `KiloliterPerSecond`, `KiloliterPerMinute`, `KiloliterPerHour`, `CubicMeterPerSecond`, `CubicMeterPerMinute`, `CubicMeterPerHour`, `CubicKilometerPerSecond`, `TeaspoonPerSecond`, `TablespoonPerSecond`, `CubicInchPerSecond`, `CubicInchPerMinute`, `CubicInchPerHour`, `FluidOuncePerSecond`, `FluidOuncePerMinute`, `FluidOuncePerHour`, `CupPerSecond`, `PintPerSecond`, `PintPerMinute`, `PintPerHour`, `QuartPerSecond`, `GallonPerSecond`, `GallonPerMinute`, `GallonPerHour`, `CubicFootPerSecond`, `CubicFootPerMinute`, `CubicFootPerHour`, `CubicYardPerSecond`, `CubicYardPerMinute`, `CubicYardPerHour`
 
 ## Type Safety
 
