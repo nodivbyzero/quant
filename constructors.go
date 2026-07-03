@@ -259,6 +259,7 @@ func Kilobytes(v float64) Quantity[Digital] { return quantityFrom[Digital](v, Ki
 func Megabytes(v float64) Quantity[Digital] { return quantityFrom[Digital](v, Megabyte) }
 func Gigabytes(v float64) Quantity[Digital] { return quantityFrom[Digital](v, Gigabyte) }
 func Terabytes(v float64) Quantity[Digital] { return quantityFrom[Digital](v, Terabyte) }
+func Petabytes(v float64) Quantity[Digital] { return quantityFrom[Digital](v, Petabyte) }
 func Kibibytes(v float64) Quantity[Digital] { return quantityFrom[Digital](v, Kibibyte) }
 func Mebibytes(v float64) Quantity[Digital] { return quantityFrom[Digital](v, Mebibyte) }
 func Gibibytes(v float64) Quantity[Digital] { return quantityFrom[Digital](v, Gibibyte) }

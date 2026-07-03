@@ -279,6 +279,8 @@ func unitSymbol(u any) string {
 		return "bit"
 	case any(Byte):
 		return "byte"
+	case any(Petabyte):
+		return "PB"
 	case any(Kibibyte):
 		return "KiB"
 	case any(Watt):

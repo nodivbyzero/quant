@@ -90,6 +90,7 @@ func TestPressureConversion(t *testing.T) {
 func TestDigitalConversion(t *testing.T) {
 	assertConversion[quant.Digital](t, 1, quant.Byte, 8, quant.Bit)
 	assertConversion[quant.Digital](t, 1, quant.Megabyte, 8, quant.Megabit)
+	assertConversion[quant.Digital](t, 1, quant.Petabyte, 1000, quant.Terabyte)
 	assertConversion[quant.Digital](t, 1, quant.Kibibyte, 1024, quant.Byte)
 }
 
