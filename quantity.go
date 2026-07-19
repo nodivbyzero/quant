@@ -163,6 +163,8 @@ func baseUnit[D any]() Unit[D] {
 		return any(VoltAmpere).(Unit[D])
 	case ReactivePower:
 		return any(VoltAmpereReactive).(Unit[D])
+	case ElectricalConductivity:
+		return any(SiemensPerMeter).(Unit[D])
 	case Energy:
 		return any(Joule).(Unit[D])
 	case ReactiveEnergy:
@@ -293,6 +295,18 @@ func unitSymbol(u any) string {
 		return "W"
 	case any(Kilowatt):
 		return "kW"
+	case any(SiemensPerMeter):
+		return "S/m"
+	case any(MillisiemensPerMeter):
+		return "mS/m"
+	case any(MicrosiemensPerMeter):
+		return "uS/m"
+	case any(SiemensPerCentimeter):
+		return "S/cm"
+	case any(MillisiemensPerCentimeter):
+		return "mS/cm"
+	case any(MicrosiemensPerCentimeter):
+		return "uS/cm"
 	case any(Joule):
 		return "J"
 	case any(Radian):

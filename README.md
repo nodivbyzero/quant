@@ -113,6 +113,7 @@ All quantities are stored internally in a base unit for their dimension:
 - Charge: coulomb
 - Current: ampere
 - Digital: bit
+- Electrical conductivity: siemens per meter
 - Energy: joule
 - Force: newton
 - Frequency: hertz
@@ -144,6 +145,7 @@ All quantities are stored internally in a base unit for their dimension:
 - Charge: `mc := quant.Coulombs(1).To(quant.Millicoulomb)`
 - Current: `a := quant.Kiloamperes(1).To(quant.Ampere)`
 - Digital: `bytes := quant.Kibibytes(1).To(quant.Byte)`
+- Electrical conductivity: `sm := quant.MillisiemensPerCentimeters(1).To(quant.SiemensPerMeter)`
 - Energy: `j := quant.KilowattHours(1).To(quant.Joule)`
 - Force: `n := quant.KilogramsForce(1).To(quant.Newton)`
 - Frequency: `hz := quant.RevolutionsPerMinute(60).To(quant.Hertz)`
@@ -192,6 +194,7 @@ fmt.Println(speed.To(quant.KilometerPerHour)) // 10
 - Charge: `Coulomb`, `Millicoulomb`, `Microcoulomb`, `Nanocoulomb`, `Picocoulomb`
 - Current: `Ampere`, `Milliampere`, `Kiloampere`
 - Digital: `Bit`, `Kilobit`, `Megabit`, `Gigabit`, `Terabit`, `Byte`, `Kilobyte`, `Megabyte`, `Gigabyte`, `Terabyte`, `Petabyte`, `Kibibyte`, `Mebibyte`, `Gibibyte`, `Tebibyte`
+- Electrical conductivity: `SiemensPerMeter`, `MillisiemensPerMeter`, `MicrosiemensPerMeter`, `SiemensPerCentimeter`, `MillisiemensPerCentimeter`, `MicrosiemensPerCentimeter`
 - Energy: `WattSecond`, `WattMinute`, `MilliwattHour`, `WattHour`, `KilowattHour`, `MegawattHour`, `GigawattHour`, `Joule`, `Kilojoule`, `Megajoule`, `Gigajoule`
 - Force: `Newton`, `Kilonewton`, `PoundForce`, `KilogramForce`
 - Frequency: `Hertz`, `Millihertz`, `Kilohertz`, `Megahertz`, `Gigahertz`, `Terahertz`, `RevolutionPerMinute`, `DegreePerSecond`, `RadianPerSecond`

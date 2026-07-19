@@ -330,6 +330,26 @@ func GigaVoltAmpereReactives(v float64) Quantity[ReactivePower] {
 	return quantityFrom[ReactivePower](v, GigaVoltAmpereReactive)
 }
 
+// Electrical conductivity constructors.
+func SiemensPerMeters(v float64) Quantity[ElectricalConductivity] {
+	return quantityFrom[ElectricalConductivity](v, SiemensPerMeter)
+}
+func MillisiemensPerMeters(v float64) Quantity[ElectricalConductivity] {
+	return quantityFrom[ElectricalConductivity](v, MillisiemensPerMeter)
+}
+func MicrosiemensPerMeters(v float64) Quantity[ElectricalConductivity] {
+	return quantityFrom[ElectricalConductivity](v, MicrosiemensPerMeter)
+}
+func SiemensPerCentimeters(v float64) Quantity[ElectricalConductivity] {
+	return quantityFrom[ElectricalConductivity](v, SiemensPerCentimeter)
+}
+func MillisiemensPerCentimeters(v float64) Quantity[ElectricalConductivity] {
+	return quantityFrom[ElectricalConductivity](v, MillisiemensPerCentimeter)
+}
+func MicrosiemensPerCentimeters(v float64) Quantity[ElectricalConductivity] {
+	return quantityFrom[ElectricalConductivity](v, MicrosiemensPerCentimeter)
+}
+
 // Energy constructors.
 func WattSeconds(v float64) Quantity[Energy]    { return quantityFrom[Energy](v, WattSecond) }
 func WattMinutes(v float64) Quantity[Energy]    { return quantityFrom[Energy](v, WattMinute) }

@@ -119,6 +119,12 @@ func TestElectricalConversions(t *testing.T) {
 	assertConversion[quant.ReactivePower](t, 1, quant.MegaVoltAmpereReactive, 1000, quant.KiloVoltAmpereReactive)
 }
 
+func TestElectricalConductivityConversions(t *testing.T) {
+	assertConversion[quant.ElectricalConductivity](t, 1, quant.SiemensPerCentimeter, 100, quant.SiemensPerMeter)
+	assertConversion[quant.ElectricalConductivity](t, 1, quant.MillisiemensPerCentimeter, 1000, quant.MicrosiemensPerCentimeter)
+	assertConversion[quant.ElectricalConductivity](t, 1000, quant.MicrosiemensPerMeter, 1, quant.MillisiemensPerMeter)
+}
+
 func TestEnergyConversions(t *testing.T) {
 	assertConversion[quant.Energy](t, 1, quant.KilowattHour, 3.6e6, quant.Joule)
 	assertConversion[quant.Energy](t, 1, quant.WattSecond, 1, quant.Joule)
