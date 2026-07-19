@@ -127,6 +127,8 @@ func baseUnit[D any]() Unit[D] {
 		return any(Meter).(Unit[D])
 	case Area:
 		return any(SquareMeter).(Unit[D])
+	case Acidity:
+		return any(PH).(Unit[D])
 	case Volume:
 		return any(CubicMeter).(Unit[D])
 	case VolumeFlowRate:
@@ -201,6 +203,10 @@ func unitSymbol(u any) string {
 		return "mt"
 	case any(Tonne):
 		return "t"
+	case any(PH):
+		return "pH"
+	case any(POH):
+		return "pOH"
 	case any(Nanometer):
 		return "nm"
 	case any(Micrometer):

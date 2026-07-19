@@ -49,6 +49,11 @@ func TestAreaConversion(t *testing.T) {
 	assertConversion[quant.Area](t, 1, quant.SquareMile, 640, quant.Acre)
 }
 
+func TestAcidityConversion(t *testing.T) {
+	assertConversion[quant.Acidity](t, 3, quant.PH, 11, quant.POH)
+	assertConversion[quant.Acidity](t, 11, quant.POH, 3, quant.PH)
+}
+
 func TestVolumeConversion(t *testing.T) {
 	assertConversion[quant.Volume](t, 1, quant.Gallon, 3.785411784, quant.Liter)
 	assertConversion[quant.Volume](t, 1, quant.Megaliter, 1000, quant.CubicMeter)

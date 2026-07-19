@@ -41,6 +41,10 @@ func SquareFeet(v float64) Quantity[Area]        { return quantityFrom[Area](v, 
 func Acres(v float64) Quantity[Area]             { return quantityFrom[Area](v, Acre) }
 func SquareMiles(v float64) Quantity[Area]       { return quantityFrom[Area](v, SquareMile) }
 
+// Acidity constructors.
+func PHValue(v float64) Quantity[Acidity]  { return quantityFrom[Acidity](v, PH) }
+func POHValue(v float64) Quantity[Acidity] { return quantityFrom[Acidity](v, POH) }
+
 // Volume constructors.
 func CubicMillimeters(v float64) Quantity[Volume] { return quantityFrom[Volume](v, CubicMillimeter) }
 func CubicCentimeters(v float64) Quantity[Volume] { return quantityFrom[Volume](v, CubicCentimeter) }

@@ -106,6 +106,7 @@ fmt.Println(value) // 5
 All quantities are stored internally in a base unit for their dimension:
 
 - Acceleration: meter per second squared
+- Acidity: pH
 - Angle: radian
 - Area: square meter
 - Apparent power: volt-ampere
@@ -136,6 +137,7 @@ All quantities are stored internally in a base unit for their dimension:
 ## Examples By Dimension
 
 - Acceleration: `ms2 := quant.GForces(1).To(quant.MeterPerSecondSquared)`
+- Acidity: `poh := quant.PHValue(3).To(quant.POH)`
 - Angle: `rad := quant.Degrees(180).To(quant.Radian)`
 - Area: `m2 := quant.Acres(1).To(quant.SquareMeter)`
 - Apparent power: `va := quant.MegaVoltAmperes(1).To(quant.VoltAmpere)`
@@ -183,6 +185,7 @@ fmt.Println(speed.To(quant.KilometerPerHour)) // 10
 ## Supported Dimensions
 
 - Acceleration: `MeterPerSecondSquared`, `GForce`, `StandardGravity`
+- Acidity: `PH`, `POH`
 - Angle: `Degree`, `Radian`, `Gradian`, `ArcMinute`, `ArcSecond`
 - Area: `SquareMillimeter` (`mm2`), `SquareCentimeter` (`cm2`), `SquareMeter` (`m2`), `Hectare` (`ha`), `SquareKilometer` (`km2`), `SquareInch` (`in2`), `SquareFoot` (`ft2`), `Acre` (`ac`), `SquareMile` (`mi2`)
 - Apparent power: `VoltAmpere`, `MilliVoltAmpere`, `KiloVoltAmpere`, `MegaVoltAmpere`, `GigaVoltAmpere`
@@ -240,6 +243,15 @@ Temperature uses affine conversion rather than a pure scale factor.
 ```go
 k := quant.New[quant.Temperature](25, quant.Celsius).To(quant.Kelvin)
 fmt.Printf("%.2f\n", k) // 298.15
+```
+
+## Acidity Conversions
+
+Acidity supports `PH` and `POH`. `PH` is the base unit, and `POH` uses the standard 25 C relationship `pH + pOH = 14`.
+
+```go
+poh := quant.PHValue(3).To(quant.POH)
+fmt.Println(poh) // 11
 ```
 
 `Month`, `Year`, `Decade`, and `Century` use average Gregorian durations: `365.25 / 12` days, `365.25` days, `10 * 365.25` days, and `100 * 365.25` days respectively.
