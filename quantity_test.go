@@ -174,6 +174,73 @@ func TestArithmetic(t *testing.T) {
 	}
 }
 
+func TestScalarOperations(t *testing.T) {
+	if got, want := quant.Meters(5).Mul(2).To(quant.Meter), 10.0; !almostEqual(got, want) {
+		t.Fatalf("Mul mismatch: got %.10f want %.10f", got, want)
+	}
+
+	if got, want := quant.Meters(5).DivScalar(2).To(quant.Meter), 2.5; !almostEqual(got, want) {
+		t.Fatalf("DivScalar mismatch: got %.10f want %.10f", got, want)
+	}
+
+	if got, want := quant.Meters(5).Neg().To(quant.Meter), -5.0; !almostEqual(got, want) {
+		t.Fatalf("Neg mismatch: got %.10f want %.10f", got, want)
+	}
+
+	if got, want := quant.Meters(-5).Abs().To(quant.Meter), 5.0; !almostEqual(got, want) {
+		t.Fatalf("Abs mismatch: got %.10f want %.10f", got, want)
+	}
+}
+
+func TestComparisonHelpers(t *testing.T) {
+	short := quant.Meters(100)
+	long := quant.Kilometers(1)
+
+	if !short.LessThan(long) {
+		t.Fatal("expected 100 m to be less than 1 km")
+	}
+
+	if !long.GreaterThan(short) {
+		t.Fatal("expected 1 km to be greater than 100 m")
+	}
+
+	if !quant.Meters(1000.0001).EqualWithin(quant.Kilometers(1), quant.Millimeters(1)) {
+		t.Fatal("expected quantities to be equal within tolerance")
+	}
+
+	if !quant.Meters(0).IsZero() {
+		t.Fatal("expected zero quantity")
+	}
+
+	if !quant.Meters(5).IsPositive() {
+		t.Fatal("expected positive quantity")
+	}
+
+	if !quant.Meters(-5).IsNegative() {
+		t.Fatal("expected negative quantity")
+	}
+
+	if got, want := quant.Min(short, long).To(quant.Meter), 100.0; !almostEqual(got, want) {
+		t.Fatalf("Min mismatch: got %.10f want %.10f", got, want)
+	}
+
+	if got, want := quant.Max(short, long).To(quant.Meter), 1000.0; !almostEqual(got, want) {
+		t.Fatalf("Max mismatch: got %.10f want %.10f", got, want)
+	}
+}
+
+func TestFromAlias(t *testing.T) {
+	mass := quant.From(10, quant.Pound)
+	if got, want := mass.To(quant.Kilogram), 4.5359237; !almostEqual(got, want) {
+		t.Fatalf("From mass mismatch: got %.10f want %.10f", got, want)
+	}
+
+	temp := quant.From(25, quant.Celsius)
+	if got, want := temp.To(quant.Kelvin), 298.15; !almostEqual(got, want) {
+		t.Fatalf("From temperature mismatch: got %.10f want %.10f", got, want)
+	}
+}
+
 func TestDerivedDivision(t *testing.T) {
 	distance := quant.Kilometers(5)
 	duration := quant.Minutes(30)

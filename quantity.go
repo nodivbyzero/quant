@@ -4,6 +4,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"fmt"
+	"math"
 	"strconv"
 )
 
@@ -17,6 +18,11 @@ type Quantity[D any] struct {
 
 // New constructs a quantity from a value expressed in the provided unit.
 func New[D any, U Unit[D]](v float64, u U) Quantity[D] {
+	return Quantity[D]{value: u.toBase(v)}
+}
+
+// From constructs a quantity from a value expressed in a built-in unit.
+func From[D any](v float64, u BuiltinUnit[D]) Quantity[D] {
 	return Quantity[D]{value: u.toBase(v)}
 }
 
@@ -113,6 +119,74 @@ func (q Quantity[D]) Add(other Quantity[D]) Quantity[D] {
 // Sub subtracts another quantity of the same dimension.
 func (q Quantity[D]) Sub(other Quantity[D]) Quantity[D] {
 	return Quantity[D]{value: q.value - other.value}
+}
+
+// Mul multiplies the quantity by a scalar.
+func (q Quantity[D]) Mul(scalar float64) Quantity[D] {
+	return Quantity[D]{value: q.value * scalar}
+}
+
+// DivScalar divides the quantity by a scalar.
+func (q Quantity[D]) DivScalar(scalar float64) Quantity[D] {
+	return Quantity[D]{value: q.value / scalar}
+}
+
+// Neg returns the additive inverse of the quantity.
+func (q Quantity[D]) Neg() Quantity[D] {
+	return Quantity[D]{value: -q.value}
+}
+
+// Abs returns the absolute value of the quantity.
+func (q Quantity[D]) Abs() Quantity[D] {
+	return Quantity[D]{value: math.Abs(q.value)}
+}
+
+// LessThan reports whether q is less than other.
+func (q Quantity[D]) LessThan(other Quantity[D]) bool {
+	return q.value < other.value
+}
+
+// GreaterThan reports whether q is greater than other.
+func (q Quantity[D]) GreaterThan(other Quantity[D]) bool {
+	return q.value > other.value
+}
+
+// EqualWithin reports whether q and other differ by no more than tolerance.
+func (q Quantity[D]) EqualWithin(other, tolerance Quantity[D]) bool {
+	return math.Abs(q.value-other.value) <= math.Abs(tolerance.value)
+}
+
+// IsZero reports whether the quantity's base-unit value is exactly zero.
+func (q Quantity[D]) IsZero() bool {
+	return q.value == 0
+}
+
+// IsPositive reports whether the quantity's base-unit value is positive.
+func (q Quantity[D]) IsPositive() bool {
+	return q.value > 0
+}
+
+// IsNegative reports whether the quantity's base-unit value is negative.
+func (q Quantity[D]) IsNegative() bool {
+	return q.value < 0
+}
+
+// Min returns the smaller of two quantities with the same dimension.
+func Min[D any](a, b Quantity[D]) Quantity[D] {
+	if a.LessThan(b) {
+		return a
+	}
+
+	return b
+}
+
+// Max returns the larger of two quantities with the same dimension.
+func Max[D any](a, b Quantity[D]) Quantity[D] {
+	if a.GreaterThan(b) {
+		return a
+	}
+
+	return b
 }
 
 func baseUnitSymbol[D any]() string {

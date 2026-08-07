@@ -53,6 +53,7 @@ Output:
 type Quantity[D any] struct
 
 func New[D any, U Unit[D]](v float64, u U) Quantity[D]
+func From[D any](v float64, u BuiltinUnit[D]) Quantity[D]
 
 func (q Quantity[D]) To(u Unit[D]) float64
 func (q Quantity[D]) Value(u Unit[D]) float64
@@ -63,9 +64,25 @@ func (q Quantity[D]) MarshalText() ([]byte, error)
 func (q *Quantity[D]) UnmarshalText(text []byte) error
 func (q Quantity[D]) Add(other Quantity[D]) Quantity[D]
 func (q Quantity[D]) Sub(other Quantity[D]) Quantity[D]
+func (q Quantity[D]) Mul(scalar float64) Quantity[D]
+func (q Quantity[D]) DivScalar(scalar float64) Quantity[D]
+func (q Quantity[D]) Neg() Quantity[D]
+func (q Quantity[D]) Abs() Quantity[D]
+func (q Quantity[D]) LessThan(other Quantity[D]) bool
+func (q Quantity[D]) GreaterThan(other Quantity[D]) bool
+func (q Quantity[D]) EqualWithin(other, tolerance Quantity[D]) bool
+func (q Quantity[D]) IsZero() bool
+func (q Quantity[D]) IsPositive() bool
+func (q Quantity[D]) IsNegative() bool
 ```
 
 `Amount[D](v).From(unit)` is also available as a fluent constructor.
+
+`From(v, unit)` is a terser constructor for built-in units:
+
+```go
+mass := quant.From(10, quant.Pound)
+```
 
 Convenience constructors are also available for direct creation from specific units, for example:
 
@@ -172,6 +189,26 @@ All quantities are stored internally in a base unit for their dimension:
 ```go
 total := quant.Meters(750).Add(quant.Kilometers(1.25))
 fmt.Println(total.To(quant.Meter)) // 2000
+```
+
+### Scalar Operations
+
+```go
+doubled := quant.Meters(5).Mul(2)
+halved := quant.Meters(5).DivScalar(2)
+neg := quant.Meters(5).Neg()
+abs := quant.Meters(-5).Abs()
+```
+
+### Comparisons
+
+```go
+short := quant.Meters(100)
+long := quant.Kilometers(1)
+
+fmt.Println(short.LessThan(long)) // true
+fmt.Println(quant.Min(short, long).To(quant.Meter)) // 100
+fmt.Println(long.EqualWithin(quant.Meters(1000.0001), quant.Millimeters(1))) // true
 ```
 
 ### Derived units

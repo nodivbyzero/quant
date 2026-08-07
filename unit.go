@@ -11,30 +11,21 @@ type Unit[D any] interface {
 	fromBase(float64) float64
 }
 
-type scaleUnit[D any] struct {
-	factor float64
-}
-
-func (u scaleUnit[D]) toBase(v float64) float64 {
-	return v * u.factor
-}
-
-func (u scaleUnit[D]) fromBase(v float64) float64 {
-	return v / u.factor
-}
-
-type affineUnit[D any] struct {
+// BuiltinUnit is the concrete unit type used by quant's built-in units.
+type BuiltinUnit[D any] struct {
 	factor float64
 	offset float64
 }
 
-func (u affineUnit[D]) toBase(v float64) float64 {
+func (u BuiltinUnit[D]) toBase(v float64) float64 {
 	return (v + u.offset) * u.factor
 }
 
-func (u affineUnit[D]) fromBase(v float64) float64 {
+func (u BuiltinUnit[D]) fromBase(v float64) float64 {
 	return v/u.factor - u.offset
 }
+
+type scaleUnit[D any] = BuiltinUnit[D]
 
 const (
 	usSurveyFootInMeters = 1200.0 / 3937.0

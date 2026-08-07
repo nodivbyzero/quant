@@ -9,5 +9,5 @@ type Acidity struct{}
 // Acidity units.
 var (
 	PH  = scaleUnit[Acidity]{factor: 1}
-	POH = affineUnit[Acidity]{factor: -1, offset: -14}
+	POH = scaleUnit[Acidity]{factor: -1, offset: -14}
 )
