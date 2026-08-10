@@ -17,6 +17,7 @@ It uses phantom types to model dimensions like length, area, mass, volume, flow,
 - JSON marshaling based on the scalar base-unit value
 - Text marshaling and `database/sql` interop helpers
 - Support for affine temperature conversions
+- Separate temperature-delta quantities for safe temperature differences
 
 ## Installation
 
@@ -124,28 +125,53 @@ All quantities are stored internally in a base unit for their dimension:
 
 - Acceleration: meter per second squared
 - Acidity: pH
+- Absorbed dose: gray
 - Angle: radian
+- Angular acceleration: radian per second squared
+- Angular velocity: radian per second
 - Area: square meter
 - Apparent power: volt-ampere
+- Capacitance: farad
+- Catalytic activity: katal
 - Charge: coulomb
+- Concentration: mole per cubic meter
 - Current: ampere
+- Data rate: bit per second
+- Density: kilogram per cubic meter
 - Digital: bit
+- Dynamic viscosity: pascal-second
 - Electrical conductivity: siemens per meter
+- Electric field: volt per meter
 - Energy: joule
+- Equivalent dose: sievert
 - Force: newton
 - Frequency: hertz
 - Illuminance: lux
+- Inductance: henry
+- Kinematic viscosity: square meter per second
 - Length: meter
+- Luminous flux: lumen
+- Luminous intensity: candela
+- Magnetic flux: weber
+- Magnetic flux density: tesla
 - Mass: kilogram
+- Molality: mole per kilogram
+- Momentum: kilogram-meter per second
 - Pace: second per meter
 - Parts-per: ratio
 - Pieces: piece
 - Power: watt
 - Pressure: pascal
+- Radioactivity: becquerel
 - Reactive energy: volt-ampere reactive hour
 - Reactive power: volt-ampere reactive
+- Resistance: ohm
 - Speed: meter per second
+- Specific heat capacity: joule per kilogram kelvin
+- Surface tension: newton per meter
 - Temperature: kelvin
+- Temperature delta: kelvin delta
+- Thermal conductivity: watt per meter kelvin
 - Time: second
 - Torque: newton-meter
 - Voltage: volt
@@ -156,28 +182,53 @@ All quantities are stored internally in a base unit for their dimension:
 
 - Acceleration: `ms2 := quant.GForces(1).To(quant.MeterPerSecondSquared)`
 - Acidity: `poh := quant.PHValue(3).To(quant.POH)`
+- Absorbed dose: `gy := quant.Rads(100).To(quant.Gray)`
 - Angle: `rad := quant.Degrees(180).To(quant.Radian)`
+- Angular acceleration: `radS2 := quant.AngularDegreesPerSecondSquared(180).To(quant.AngularRadianPerSecondSquared)`
+- Angular velocity: `radS := quant.AngularRevolutionsPerMinute(60).To(quant.AngularRadianPerSecond)`
 - Area: `m2 := quant.Acres(1).To(quant.SquareMeter)`
 - Apparent power: `va := quant.MegaVoltAmperes(1).To(quant.VoltAmpere)`
+- Capacitance: `uf := quant.Nanofarads(1000).To(quant.Microfarad)`
+- Catalytic activity: `kat := quant.Katals(1).To(quant.Katal)`
 - Charge: `mc := quant.Coulombs(1).To(quant.Millicoulomb)`
+- Concentration: `molm3 := quant.Molars(1).To(quant.MolePerCubicMeter)`
 - Current: `a := quant.Kiloamperes(1).To(quant.Ampere)`
+- Data rate: `mbps := quant.MegabytesPerSecond(1).To(quant.MegabitPerSecond)`
+- Density: `kgm3 := quant.GramsPerCubicCentimeter(1).To(quant.KilogramPerCubicMeter)`
 - Digital: `bytes := quant.Kibibytes(1).To(quant.Byte)`
+- Dynamic viscosity: `cp := quant.Poises(1).To(quant.Centipoise)`
 - Electrical conductivity: `sm := quant.MillisiemensPerCentimeters(1).To(quant.SiemensPerMeter)`
+- Electric field: `nc := quant.VoltsPerMeter(1).To(quant.NewtonPerCoulomb)`
 - Energy: `j := quant.KilowattHours(1).To(quant.Joule)`
+- Equivalent dose: `sv := quant.Rems(100).To(quant.Sievert)`
 - Force: `n := quant.KilogramsForce(1).To(quant.Newton)`
 - Frequency: `hz := quant.RevolutionsPerMinute(60).To(quant.Hertz)`
 - Illuminance: `lx := quant.FootCandles(1).To(quant.Lux)`
+- Inductance: `mh := quant.Microhenrys(1000).To(quant.Millihenry)`
+- Kinematic viscosity: `cst := quant.StokesValues(1).To(quant.Centistokes)`
 - Length: `km := quant.Miles(3).To(quant.Kilometer)`
+- Luminous flux: `lm := quant.Lumens(800).To(quant.Lumen)`
+- Luminous intensity: `cd := quant.Candelas(1).To(quant.Candela)`
+- Magnetic flux: `mx := quant.Webers(1).To(quant.Maxwell)`
+- Magnetic flux density: `gauss := quant.Teslas(1).To(quant.Gauss)`
 - Mass: `kg := quant.Pounds(10).To(quant.Kilogram)`
+- Molality: `molkg := quant.Molals(1).To(quant.MolePerKilogram)`
+- Momentum: `ns := quant.KilogramMetersPerSecond(1).To(quant.NewtonSecond)`
 - Pace: `spm := quant.MinutesPerKilometer(5).To(quant.SecondPerMeter)`
 - Parts-per: `ppb := quant.PartsPerMillion(1).To(quant.PPB)`
 - Pieces: `pcs := quant.Dozens(1).To(quant.Piece)`
 - Power: `w := quant.HorsepowerValues(1).To(quant.Watt)`
 - Pressure: `pa := quant.Bars(1).To(quant.Pascal)`
+- Radioactivity: `bq := quant.Curies(1).To(quant.Becquerel)`
 - Reactive energy: `varh := quant.MegaVoltAmpereReactiveHours(1).To(quant.KiloVoltAmpereReactiveHour)`
 - Reactive power: `vars := quant.MegaVoltAmpereReactives(1).To(quant.KiloVoltAmpereReactive)`
+- Resistance: `ohm := quant.Kiloohms(1).To(quant.Ohm)`
 - Speed: `kmh := quant.MetersPerSecond(10).To(quant.KilometerPerHour)`
+- Specific heat capacity: `jkgk := quant.JoulesPerKilogramKelvin(1).To(quant.JoulePerKilogramKelvin)`
+- Surface tension: `nm := quant.DynesPerCentimeter(1).To(quant.NewtonPerMeter)`
 - Temperature: `k := quant.DegreesCelsius(25).To(quant.Kelvin)`
+- Temperature delta: `dk := quant.FahrenheitDeltas(18).To(quant.KelvinDelta)`
+- Thermal conductivity: `wmk := quant.WattsPerMeterKelvin(1).To(quant.WattPerMeterKelvin)`
 - Time: `years := quant.Decades(1).To(quant.Year)`
 - Torque: `nm := quant.PoundForceFeet(1).To(quant.NewtonMeter)`
 - Voltage: `v := quant.Kilovolts(1).To(quant.Volt)`
@@ -225,28 +276,53 @@ fmt.Println(speed.To(quant.KilometerPerHour)) // 10
 
 - Acceleration: `MeterPerSecondSquared`, `GForce`, `StandardGravity`
 - Acidity: `PH`, `POH`
+- Absorbed dose: `Gray`, `Rad`
 - Angle: `Degree`, `Radian`, `Gradian`, `ArcMinute`, `ArcSecond`
+- Angular acceleration: `AngularRadianPerSecondSquared`, `AngularDegreePerSecondSquared`
+- Angular velocity: `AngularRadianPerSecond`, `AngularDegreePerSecond`, `AngularRevolutionPerMinute`
 - Area: `SquareMillimeter` (`mm2`), `SquareCentimeter` (`cm2`), `SquareMeter` (`m2`), `Hectare` (`ha`), `SquareKilometer` (`km2`), `SquareInch` (`in2`), `SquareFoot` (`ft2`), `Acre` (`ac`), `SquareMile` (`mi2`)
 - Apparent power: `VoltAmpere`, `MilliVoltAmpere`, `KiloVoltAmpere`, `MegaVoltAmpere`, `GigaVoltAmpere`
+- Capacitance: `Farad`, `Microfarad`, `Nanofarad`, `Picofarad`
+- Catalytic activity: `Katal`
 - Charge: `Coulomb`, `Millicoulomb`, `Microcoulomb`, `Nanocoulomb`, `Picocoulomb`
+- Concentration: `MolePerCubicMeter`, `Molar`, `Millimolar`
 - Current: `Ampere`, `Milliampere`, `Kiloampere`
+- Data rate: `BitPerSecond`, `KilobitPerSecond`, `MegabitPerSecond`, `GigabitPerSecond`, `TerabitPerSecond`, `BytePerSecond`, `KilobytePerSecond`, `MegabytePerSecond`, `GigabytePerSecond`, `TerabytePerSecond`, `KibibytePerSecond`, `MebibytePerSecond`, `GibibytePerSecond`, `TebibytePerSecond`
+- Density: `KilogramPerCubicMeter`, `GramPerCubicCentimeter`, `PoundPerCubicFoot`, `KilogramPerLiter`
 - Digital: `Bit`, `Kilobit`, `Megabit`, `Gigabit`, `Terabit`, `Byte`, `Kilobyte`, `Megabyte`, `Gigabyte`, `Terabyte`, `Petabyte`, `Kibibyte`, `Mebibyte`, `Gibibyte`, `Tebibyte`
+- Dynamic viscosity: `PascalSecond`, `Poise`, `Centipoise`
 - Electrical conductivity: `SiemensPerMeter`, `MillisiemensPerMeter`, `MicrosiemensPerMeter`, `SiemensPerCentimeter`, `MillisiemensPerCentimeter`, `MicrosiemensPerCentimeter`
+- Electric field: `VoltPerMeter`, `NewtonPerCoulomb`
 - Energy: `WattSecond`, `WattMinute`, `MilliwattHour`, `WattHour`, `KilowattHour`, `MegawattHour`, `GigawattHour`, `Joule`, `Kilojoule`, `Megajoule`, `Gigajoule`
+- Equivalent dose: `Sievert`, `Rem`
 - Force: `Newton`, `Kilonewton`, `PoundForce`, `KilogramForce`
 - Frequency: `Hertz`, `Millihertz`, `Kilohertz`, `Megahertz`, `Gigahertz`, `Terahertz`, `RevolutionPerMinute`, `DegreePerSecond`, `RadianPerSecond`
 - Illuminance: `Lux`, `FootCandle`
+- Inductance: `Henry`, `Millihenry`, `Microhenry`
+- Kinematic viscosity: `SquareMeterPerSecond`, `Stokes`, `Centistokes`
 - Length: `Nanometer`, `Micrometer`, `Millimeter`, `Centimeter`, `Meter`, `Inch`, `Yard`, `USFoot`, `Foot`, `Fathom`, `Kilometer`, `Mile`, `NauticalMile`
+- Luminous flux: `Lumen`
+- Luminous intensity: `Candela`
+- Magnetic flux: `Weber`, `Maxwell`
+- Magnetic flux density: `Tesla`, `Millitesla`, `Gauss`
 - Mass: `Microgram` (`mcg`), `Milligram` (`mg`), `Gram` (`g`), `Kilogram` (`kg`), `Ounce` (`oz`), `Pound` (`lb`), `MetricTon` (`mt`), `Stone` (`st`), `Tonne` (`t`)
+- Molality: `MolePerKilogram`, `Molal`
+- Momentum: `KilogramMeterPerSecond`, `NewtonSecond`
 - Pace: `SecondPerMeter`, `MinutePerKilometer`, `SecondPerFoot`, `MinutePerMile`
 - Parts-per: `PPM`, `PPB`, `PPT`, `PPQ`
 - Pieces: `Piece`, `BakersDozen`, `Couple`, `DozenDozen`, `Dozen`, `GreatGross`, `Gross`, `HalfDozen`, `LongHundred`, `Ream`, `Score`, `SmallGross`, `Trio`
 - Pressure: `Pascal`, `Hectopascal`, `Kilopascal`, `Megapascal`, `Bar`, `Torr`, `MeterOfWater`, `MillimeterOfMercury`, `PSI`, `KSI`
 - Power: `Watt`, `Milliwatt`, `Kilowatt`, `Megawatt`, `Gigawatt`, `MetricHorsepower`, `BTUPerSecond`, `FootPoundForcePerSecond`, `Horsepower`
-- Reactive power: `VoltAmpereReactive`, `MilliVoltAmpereReactive`, `KiloVoltAmpereReactive`, `MegaVoltAmpereReactive`, `GigaVoltAmpereReactive`
+- Radioactivity: `Becquerel`, `Curie`
 - Reactive energy: `VoltAmpereReactiveHour`, `MilliVoltAmpereReactiveHour`, `KiloVoltAmpereReactiveHour`, `MegaVoltAmpereReactiveHour`, `GigaVoltAmpereReactiveHour`
+- Reactive power: `VoltAmpereReactive`, `MilliVoltAmpereReactive`, `KiloVoltAmpereReactive`, `MegaVoltAmpereReactive`, `GigaVoltAmpereReactive`
+- Resistance: `Ohm`, `Milliohm`, `Kiloohm`, `Megaohm`
 - Speed: `MeterPerSecond`, `KilometerPerHour`, `MilePerHour`, `MeterPerHour`, `Knot`, `FootPerSecond`, `InchPerHour`, `MillimeterPerHour`
+- Specific heat capacity: `JoulePerKilogramKelvin`
+- Surface tension: `NewtonPerMeter`, `DynePerCentimeter`
 - Temperature: `Celsius`, `Fahrenheit`, `Kelvin`, `Rankine`
+- Temperature delta: `KelvinDelta`, `CelsiusDelta`, `FahrenheitDelta`, `RankineDelta`
+- Thermal conductivity: `WattPerMeterKelvin`
 - Time: `Nanosecond`, `Microsecond`, `Millisecond`, `Second`, `Minute`, `Hour`, `Day`, `Week`, `Month`, `Year`, `Decade`, `Century`
 - Torque: `NewtonMeter`, `PoundForceFoot`
 - Voltage: `Volt`, `Millivolt`, `Kilovolt`

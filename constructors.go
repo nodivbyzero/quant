@@ -187,6 +187,20 @@ func DegreesFahrenheit(v float64) Quantity[Temperature] {
 func Kelvins(v float64) Quantity[Temperature]        { return quantityFrom[Temperature](v, Kelvin) }
 func DegreesRankine(v float64) Quantity[Temperature] { return quantityFrom[Temperature](v, Rankine) }
 
+// Temperature delta constructors.
+func KelvinDeltas(v float64) Quantity[TemperatureDelta] {
+	return quantityFrom[TemperatureDelta](v, KelvinDelta)
+}
+func CelsiusDeltas(v float64) Quantity[TemperatureDelta] {
+	return quantityFrom[TemperatureDelta](v, CelsiusDelta)
+}
+func FahrenheitDeltas(v float64) Quantity[TemperatureDelta] {
+	return quantityFrom[TemperatureDelta](v, FahrenheitDelta)
+}
+func RankineDeltas(v float64) Quantity[TemperatureDelta] {
+	return quantityFrom[TemperatureDelta](v, RankineDelta)
+}
+
 // Time constructors.
 func Nanoseconds(v float64) Quantity[Time]  { return quantityFrom[Time](v, Nanosecond) }
 func Microseconds(v float64) Quantity[Time] { return quantityFrom[Time](v, Microsecond) }
@@ -330,6 +344,31 @@ func GigaVoltAmpereReactives(v float64) Quantity[ReactivePower] {
 	return quantityFrom[ReactivePower](v, GigaVoltAmpereReactive)
 }
 
+// Resistance constructors.
+func Ohms(v float64) Quantity[Resistance]      { return quantityFrom[Resistance](v, Ohm) }
+func Milliohms(v float64) Quantity[Resistance] { return quantityFrom[Resistance](v, Milliohm) }
+func Kiloohms(v float64) Quantity[Resistance]  { return quantityFrom[Resistance](v, Kiloohm) }
+func Megaohms(v float64) Quantity[Resistance]  { return quantityFrom[Resistance](v, Megaohm) }
+
+// Capacitance constructors.
+func Farads(v float64) Quantity[Capacitance]      { return quantityFrom[Capacitance](v, Farad) }
+func Microfarads(v float64) Quantity[Capacitance] { return quantityFrom[Capacitance](v, Microfarad) }
+func Nanofarads(v float64) Quantity[Capacitance]  { return quantityFrom[Capacitance](v, Nanofarad) }
+func Picofarads(v float64) Quantity[Capacitance]  { return quantityFrom[Capacitance](v, Picofarad) }
+
+// Inductance constructors.
+func Henrys(v float64) Quantity[Inductance]      { return quantityFrom[Inductance](v, Henry) }
+func Millihenrys(v float64) Quantity[Inductance] { return quantityFrom[Inductance](v, Millihenry) }
+func Microhenrys(v float64) Quantity[Inductance] { return quantityFrom[Inductance](v, Microhenry) }
+
+// Electric field constructors.
+func VoltsPerMeter(v float64) Quantity[ElectricField] {
+	return quantityFrom[ElectricField](v, VoltPerMeter)
+}
+func NewtonsPerCoulomb(v float64) Quantity[ElectricField] {
+	return quantityFrom[ElectricField](v, NewtonPerCoulomb)
+}
+
 // Electrical conductivity constructors.
 func SiemensPerMeters(v float64) Quantity[ElectricalConductivity] {
 	return quantityFrom[ElectricalConductivity](v, SiemensPerMeter)
@@ -405,6 +444,182 @@ func MetersPerSecondSquared(v float64) Quantity[Acceleration] {
 func GForces(v float64) Quantity[Acceleration] { return quantityFrom[Acceleration](v, GForce) }
 func StandardGravities(v float64) Quantity[Acceleration] {
 	return quantityFrom[Acceleration](v, StandardGravity)
+}
+
+// Angular velocity constructors.
+func AngularRadiansPerSecond(v float64) Quantity[AngularVelocity] {
+	return quantityFrom[AngularVelocity](v, AngularRadianPerSecond)
+}
+func AngularDegreesPerSecond(v float64) Quantity[AngularVelocity] {
+	return quantityFrom[AngularVelocity](v, AngularDegreePerSecond)
+}
+func AngularRevolutionsPerMinute(v float64) Quantity[AngularVelocity] {
+	return quantityFrom[AngularVelocity](v, AngularRevolutionPerMinute)
+}
+
+// Angular acceleration constructors.
+func AngularRadiansPerSecondSquared(v float64) Quantity[AngularAcceleration] {
+	return quantityFrom[AngularAcceleration](v, AngularRadianPerSecondSquared)
+}
+func AngularDegreesPerSecondSquared(v float64) Quantity[AngularAcceleration] {
+	return quantityFrom[AngularAcceleration](v, AngularDegreePerSecondSquared)
+}
+
+// Density constructors.
+func KilogramsPerCubicMeter(v float64) Quantity[Density] {
+	return quantityFrom[Density](v, KilogramPerCubicMeter)
+}
+func GramsPerCubicCentimeter(v float64) Quantity[Density] {
+	return quantityFrom[Density](v, GramPerCubicCentimeter)
+}
+func PoundsPerCubicFoot(v float64) Quantity[Density] {
+	return quantityFrom[Density](v, PoundPerCubicFoot)
+}
+func KilogramsPerLiter(v float64) Quantity[Density] {
+	return quantityFrom[Density](v, KilogramPerLiter)
+}
+
+// Data rate constructors.
+func BitsPerSecond(v float64) Quantity[DataRate] { return quantityFrom[DataRate](v, BitPerSecond) }
+func KilobitsPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, KilobitPerSecond)
+}
+func MegabitsPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, MegabitPerSecond)
+}
+func GigabitsPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, GigabitPerSecond)
+}
+func TerabitsPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, TerabitPerSecond)
+}
+func BytesPerSecond(v float64) Quantity[DataRate] { return quantityFrom[DataRate](v, BytePerSecond) }
+func KilobytesPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, KilobytePerSecond)
+}
+func MegabytesPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, MegabytePerSecond)
+}
+func GigabytesPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, GigabytePerSecond)
+}
+func TerabytesPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, TerabytePerSecond)
+}
+func KibibytesPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, KibibytePerSecond)
+}
+func MebibytesPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, MebibytePerSecond)
+}
+func GibibytesPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, GibibytePerSecond)
+}
+func TebibytesPerSecond(v float64) Quantity[DataRate] {
+	return quantityFrom[DataRate](v, TebibytePerSecond)
+}
+
+// Luminous flux constructors.
+func Lumens(v float64) Quantity[LuminousFlux] { return quantityFrom[LuminousFlux](v, Lumen) }
+
+// Luminous intensity constructors.
+func Candelas(v float64) Quantity[LuminousIntensity] {
+	return quantityFrom[LuminousIntensity](v, Candela)
+}
+
+// Magnetic flux constructors.
+func Webers(v float64) Quantity[MagneticFlux]   { return quantityFrom[MagneticFlux](v, Weber) }
+func Maxwells(v float64) Quantity[MagneticFlux] { return quantityFrom[MagneticFlux](v, Maxwell) }
+
+// Magnetic flux density constructors.
+func Teslas(v float64) Quantity[MagneticFluxDensity] {
+	return quantityFrom[MagneticFluxDensity](v, Tesla)
+}
+func Milliteslas(v float64) Quantity[MagneticFluxDensity] {
+	return quantityFrom[MagneticFluxDensity](v, Millitesla)
+}
+func Gausses(v float64) Quantity[MagneticFluxDensity] {
+	return quantityFrom[MagneticFluxDensity](v, Gauss)
+}
+
+// Dynamic viscosity constructors.
+func PascalSeconds(v float64) Quantity[DynamicViscosity] {
+	return quantityFrom[DynamicViscosity](v, PascalSecond)
+}
+func Poises(v float64) Quantity[DynamicViscosity] {
+	return quantityFrom[DynamicViscosity](v, Poise)
+}
+func Centipoises(v float64) Quantity[DynamicViscosity] {
+	return quantityFrom[DynamicViscosity](v, Centipoise)
+}
+
+// Kinematic viscosity constructors.
+func SquareMetersPerSecond(v float64) Quantity[KinematicViscosity] {
+	return quantityFrom[KinematicViscosity](v, SquareMeterPerSecond)
+}
+func StokesValues(v float64) Quantity[KinematicViscosity] {
+	return quantityFrom[KinematicViscosity](v, Stokes)
+}
+func CentistokesValues(v float64) Quantity[KinematicViscosity] {
+	return quantityFrom[KinematicViscosity](v, Centistokes)
+}
+
+// Concentration constructors.
+func MolesPerCubicMeter(v float64) Quantity[Concentration] {
+	return quantityFrom[Concentration](v, MolePerCubicMeter)
+}
+func Molars(v float64) Quantity[Concentration] { return quantityFrom[Concentration](v, Molar) }
+func Millimolars(v float64) Quantity[Concentration] {
+	return quantityFrom[Concentration](v, Millimolar)
+}
+
+// Molality constructors.
+func MolesPerKilogram(v float64) Quantity[Molality] {
+	return quantityFrom[Molality](v, MolePerKilogram)
+}
+func Molals(v float64) Quantity[Molality] { return quantityFrom[Molality](v, Molal) }
+
+// Surface tension constructors.
+func NewtonsPerMeter(v float64) Quantity[SurfaceTension] {
+	return quantityFrom[SurfaceTension](v, NewtonPerMeter)
+}
+func DynesPerCentimeter(v float64) Quantity[SurfaceTension] {
+	return quantityFrom[SurfaceTension](v, DynePerCentimeter)
+}
+
+// Thermal conductivity constructors.
+func WattsPerMeterKelvin(v float64) Quantity[ThermalConductivity] {
+	return quantityFrom[ThermalConductivity](v, WattPerMeterKelvin)
+}
+
+// Specific heat capacity constructors.
+func JoulesPerKilogramKelvin(v float64) Quantity[SpecificHeatCapacity] {
+	return quantityFrom[SpecificHeatCapacity](v, JoulePerKilogramKelvin)
+}
+
+// Momentum constructors.
+func KilogramMetersPerSecond(v float64) Quantity[Momentum] {
+	return quantityFrom[Momentum](v, KilogramMeterPerSecond)
+}
+func NewtonSeconds(v float64) Quantity[Momentum] {
+	return quantityFrom[Momentum](v, NewtonSecond)
+}
+
+// Radioactivity constructors.
+func Becquerels(v float64) Quantity[Radioactivity] { return quantityFrom[Radioactivity](v, Becquerel) }
+func Curies(v float64) Quantity[Radioactivity]     { return quantityFrom[Radioactivity](v, Curie) }
+
+// Absorbed dose constructors.
+func Grays(v float64) Quantity[AbsorbedDose] { return quantityFrom[AbsorbedDose](v, Gray) }
+func Rads(v float64) Quantity[AbsorbedDose]  { return quantityFrom[AbsorbedDose](v, Rad) }
+
+// Equivalent dose constructors.
+func Sieverts(v float64) Quantity[EquivalentDose] { return quantityFrom[EquivalentDose](v, Sievert) }
+func Rems(v float64) Quantity[EquivalentDose]     { return quantityFrom[EquivalentDose](v, Rem) }
+
+// Catalytic activity constructors.
+func Katals(v float64) Quantity[CatalyticActivity] {
+	return quantityFrom[CatalyticActivity](v, Katal)
 }
 
 // Pieces constructors.

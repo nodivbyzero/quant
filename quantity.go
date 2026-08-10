@@ -235,14 +235,36 @@ func baseUnit[D any]() Unit[D] {
 		return any(Watt).(Unit[D])
 	case ApparentPower:
 		return any(VoltAmpere).(Unit[D])
+	case AngularAcceleration:
+		return any(AngularRadianPerSecondSquared).(Unit[D])
+	case AngularVelocity:
+		return any(AngularRadianPerSecond).(Unit[D])
+	case Capacitance:
+		return any(Farad).(Unit[D])
+	case CatalyticActivity:
+		return any(Katal).(Unit[D])
 	case ReactivePower:
 		return any(VoltAmpereReactive).(Unit[D])
+	case Concentration:
+		return any(MolePerCubicMeter).(Unit[D])
+	case DataRate:
+		return any(BitPerSecond).(Unit[D])
+	case Density:
+		return any(KilogramPerCubicMeter).(Unit[D])
+	case DynamicViscosity:
+		return any(PascalSecond).(Unit[D])
 	case ElectricalConductivity:
 		return any(SiemensPerMeter).(Unit[D])
+	case ElectricField:
+		return any(VoltPerMeter).(Unit[D])
 	case Energy:
 		return any(Joule).(Unit[D])
+	case AbsorbedDose:
+		return any(Gray).(Unit[D])
 	case ReactiveEnergy:
 		return any(VoltAmpereReactiveHour).(Unit[D])
+	case EquivalentDose:
+		return any(Sievert).(Unit[D])
 	case Angle:
 		return any(Radian).(Unit[D])
 	case Charge:
@@ -251,8 +273,36 @@ func baseUnit[D any]() Unit[D] {
 		return any(Newton).(Unit[D])
 	case Acceleration:
 		return any(MeterPerSecondSquared).(Unit[D])
+	case Inductance:
+		return any(Henry).(Unit[D])
+	case KinematicViscosity:
+		return any(SquareMeterPerSecond).(Unit[D])
+	case LuminousFlux:
+		return any(Lumen).(Unit[D])
+	case LuminousIntensity:
+		return any(Candela).(Unit[D])
+	case MagneticFlux:
+		return any(Weber).(Unit[D])
+	case MagneticFluxDensity:
+		return any(Tesla).(Unit[D])
+	case Molality:
+		return any(MolePerKilogram).(Unit[D])
+	case Momentum:
+		return any(KilogramMeterPerSecond).(Unit[D])
 	case Pieces:
 		return any(Piece).(Unit[D])
+	case Radioactivity:
+		return any(Becquerel).(Unit[D])
+	case Resistance:
+		return any(Ohm).(Unit[D])
+	case SpecificHeatCapacity:
+		return any(JoulePerKilogramKelvin).(Unit[D])
+	case SurfaceTension:
+		return any(NewtonPerMeter).(Unit[D])
+	case TemperatureDelta:
+		return any(KelvinDelta).(Unit[D])
+	case ThermalConductivity:
+		return any(WattPerMeterKelvin).(Unit[D])
 	default:
 		var zero Unit[D]
 		return zero
@@ -317,6 +367,14 @@ func unitSymbol(u any) string {
 		return "K"
 	case any(Rankine):
 		return "R"
+	case any(KelvinDelta):
+		return "K-delta"
+	case any(CelsiusDelta):
+		return "C-delta"
+	case any(FahrenheitDelta):
+		return "F-delta"
+	case any(RankineDelta):
+		return "R-delta"
 	case any(Second):
 		return "s"
 	case any(Minute):
@@ -351,12 +409,42 @@ func unitSymbol(u any) string {
 		return "Nm"
 	case any(PoundForceFoot):
 		return "lbf-ft"
+	case any(KilogramPerCubicMeter):
+		return "kg/m3"
+	case any(GramPerCubicCentimeter):
+		return "g/cm3"
+	case any(PoundPerCubicFoot):
+		return "lb/ft3"
+	case any(KilogramPerLiter):
+		return "kg/l"
 	case any(Pascal):
 		return "Pa"
 	case any(Bar):
 		return "bar"
 	case any(PSI):
 		return "psi"
+	case any(Ohm):
+		return "Ohm"
+	case any(Milliohm):
+		return "mOhm"
+	case any(Kiloohm):
+		return "kOhm"
+	case any(Megaohm):
+		return "MOhm"
+	case any(Farad):
+		return "F"
+	case any(Microfarad):
+		return "uF"
+	case any(Nanofarad):
+		return "nF"
+	case any(Picofarad):
+		return "pF"
+	case any(Henry):
+		return "H"
+	case any(Millihenry):
+		return "mH"
+	case any(Microhenry):
+		return "uH"
 	case any(Bit):
 		return "bit"
 	case any(Byte):
@@ -365,10 +453,42 @@ func unitSymbol(u any) string {
 		return "PB"
 	case any(Kibibyte):
 		return "KiB"
+	case any(BitPerSecond):
+		return "bit/s"
+	case any(KilobitPerSecond):
+		return "kbps"
+	case any(MegabitPerSecond):
+		return "Mbps"
+	case any(GigabitPerSecond):
+		return "Gbps"
+	case any(TerabitPerSecond):
+		return "Tbps"
+	case any(BytePerSecond):
+		return "B/s"
+	case any(KilobytePerSecond):
+		return "kB/s"
+	case any(MegabytePerSecond):
+		return "MB/s"
+	case any(GigabytePerSecond):
+		return "GB/s"
+	case any(TerabytePerSecond):
+		return "TB/s"
+	case any(KibibytePerSecond):
+		return "KiB/s"
+	case any(MebibytePerSecond):
+		return "MiB/s"
+	case any(GibibytePerSecond):
+		return "GiB/s"
+	case any(TebibytePerSecond):
+		return "TiB/s"
 	case any(Watt):
 		return "W"
 	case any(Kilowatt):
 		return "kW"
+	case any(VoltPerMeter):
+		return "V/m"
+	case any(NewtonPerCoulomb):
+		return "N/C"
 	case any(SiemensPerMeter):
 		return "S/m"
 	case any(MillisiemensPerMeter):
@@ -383,10 +503,34 @@ func unitSymbol(u any) string {
 		return "uS/cm"
 	case any(Joule):
 		return "J"
+	case any(Lumen):
+		return "lm"
+	case any(Candela):
+		return "cd"
+	case any(Weber):
+		return "Wb"
+	case any(Maxwell):
+		return "Mx"
+	case any(Tesla):
+		return "T"
+	case any(Millitesla):
+		return "mT"
+	case any(Gauss):
+		return "G"
 	case any(Radian):
 		return "rad"
 	case any(Degree):
 		return "deg"
+	case any(AngularRadianPerSecond):
+		return "rad/s"
+	case any(AngularDegreePerSecond):
+		return "deg/s"
+	case any(AngularRevolutionPerMinute):
+		return "rpm"
+	case any(AngularRadianPerSecondSquared):
+		return "rad/s2"
+	case any(AngularDegreePerSecondSquared):
+		return "deg/s2"
 	case any(Coulomb):
 		return "C"
 	case any(Newton):
@@ -395,6 +539,54 @@ func unitSymbol(u any) string {
 		return "m/s2"
 	case any(GForce):
 		return "g"
+	case any(PascalSecond):
+		return "Pa*s"
+	case any(Poise):
+		return "P"
+	case any(Centipoise):
+		return "cP"
+	case any(SquareMeterPerSecond):
+		return "m2/s"
+	case any(Stokes):
+		return "St"
+	case any(Centistokes):
+		return "cSt"
+	case any(MolePerCubicMeter):
+		return "mol/m3"
+	case any(Molar):
+		return "M"
+	case any(Millimolar):
+		return "mM"
+	case any(MolePerKilogram):
+		return "mol/kg"
+	case any(Molal):
+		return "molal"
+	case any(NewtonPerMeter):
+		return "N/m"
+	case any(DynePerCentimeter):
+		return "dyn/cm"
+	case any(WattPerMeterKelvin):
+		return "W/(m*K)"
+	case any(JoulePerKilogramKelvin):
+		return "J/(kg*K)"
+	case any(KilogramMeterPerSecond):
+		return "kg*m/s"
+	case any(NewtonSecond):
+		return "N*s"
+	case any(Becquerel):
+		return "Bq"
+	case any(Curie):
+		return "Ci"
+	case any(Gray):
+		return "Gy"
+	case any(Rad):
+		return "rad"
+	case any(Sievert):
+		return "Sv"
+	case any(Rem):
+		return "rem"
+	case any(Katal):
+		return "kat"
 	case any(Piece):
 		return "pcs"
 	case any(Ratio):

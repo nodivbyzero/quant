@@ -3,8 +3,9 @@
 //
 // Quantities are stored in dimension-specific base units, and conversions are
 // checked at compile time through phantom type parameters. The package includes
-// built-in dimensions for common physical quantities, convenience constructors,
-// same-dimension arithmetic, derived units such as speed from length divided by
-// time, formatting helpers, and JSON, text, and SQL interop based on base-unit
-// scalar values.
+// built-in dimensions for common physical, electrical, mechanical, thermal,
+// chemical, photometric, magnetic, radiation, and digital quantities,
+// convenience constructors, same-dimension arithmetic, derived units such as
+// speed from length divided by time, formatting helpers, and JSON, text, and SQL
+// interop based on base-unit scalar values.
 package quant

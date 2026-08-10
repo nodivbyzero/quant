@@ -152,6 +152,54 @@ func TestAccelerationConversion(t *testing.T) {
 	assertConversion[quant.Acceleration](t, 1, quant.StandardGravity, 1, quant.GForce)
 }
 
+func TestPhase2Conversions(t *testing.T) {
+	assertConversion[quant.Density](t, 1, quant.GramPerCubicCentimeter, 1000, quant.KilogramPerCubicMeter)
+	assertConversion[quant.Density](t, 1, quant.KilogramPerLiter, 1000, quant.KilogramPerCubicMeter)
+	assertConversion[quant.Density](t, 1, quant.PoundPerCubicFoot, 16.01846337396014, quant.KilogramPerCubicMeter)
+
+	assertConversion[quant.Resistance](t, 1, quant.Megaohm, 1000, quant.Kiloohm)
+	assertConversion[quant.Capacitance](t, 1000, quant.Nanofarad, 1, quant.Microfarad)
+	assertConversion[quant.Inductance](t, 1000, quant.Microhenry, 1, quant.Millihenry)
+	assertConversion[quant.ElectricField](t, 1, quant.VoltPerMeter, 1, quant.NewtonPerCoulomb)
+
+	assertConversion[quant.AngularVelocity](t, 180, quant.AngularDegreePerSecond, math.Pi, quant.AngularRadianPerSecond)
+	assertConversion[quant.AngularVelocity](t, 60, quant.AngularRevolutionPerMinute, 2*math.Pi, quant.AngularRadianPerSecond)
+	assertConversion[quant.AngularAcceleration](t, 180, quant.AngularDegreePerSecondSquared, math.Pi, quant.AngularRadianPerSecondSquared)
+
+	assertConversion[quant.DataRate](t, 1, quant.MegabytePerSecond, 8, quant.MegabitPerSecond)
+	assertConversion[quant.DataRate](t, 1, quant.MebibytePerSecond, 1024, quant.KibibytePerSecond)
+
+	assertConversion[quant.MagneticFlux](t, 1, quant.Weber, 1e8, quant.Maxwell)
+	assertConversion[quant.MagneticFluxDensity](t, 1, quant.Tesla, 10000, quant.Gauss)
+
+	assertConversion[quant.DynamicViscosity](t, 1, quant.Poise, 100, quant.Centipoise)
+	assertConversion[quant.KinematicViscosity](t, 1, quant.Stokes, 100, quant.Centistokes)
+	assertConversion[quant.Concentration](t, 1, quant.Molar, 1000, quant.MolePerCubicMeter)
+	assertConversion[quant.Molality](t, 1, quant.Molal, 1, quant.MolePerKilogram)
+	assertConversion[quant.SurfaceTension](t, 1, quant.DynePerCentimeter, 0.001, quant.NewtonPerMeter)
+	assertConversion[quant.ThermalConductivity](t, 1, quant.WattPerMeterKelvin, 1, quant.WattPerMeterKelvin)
+	assertConversion[quant.SpecificHeatCapacity](t, 1, quant.JoulePerKilogramKelvin, 1, quant.JoulePerKilogramKelvin)
+	assertConversion[quant.Momentum](t, 1, quant.NewtonSecond, 1, quant.KilogramMeterPerSecond)
+	assertConversion[quant.Radioactivity](t, 1, quant.Curie, 3.7e10, quant.Becquerel)
+	assertConversion[quant.AbsorbedDose](t, 1, quant.Rad, 0.01, quant.Gray)
+	assertConversion[quant.EquivalentDose](t, 1, quant.Rem, 0.01, quant.Sievert)
+	assertConversion[quant.CatalyticActivity](t, 1, quant.Katal, 1, quant.Katal)
+}
+
+func TestTemperatureDelta(t *testing.T) {
+	assertConversion[quant.TemperatureDelta](t, 18, quant.FahrenheitDelta, 10, quant.KelvinDelta)
+
+	warmed := quant.DegreesCelsius(25).AddDelta(quant.CelsiusDeltas(10))
+	if got, want := warmed.To(quant.Celsius), 35.0; !almostEqual(got, want) {
+		t.Fatalf("AddDelta mismatch: got %.10f want %.10f", got, want)
+	}
+
+	cooled := quant.DegreesCelsius(25).SubDelta(quant.FahrenheitDeltas(18))
+	if got, want := cooled.To(quant.Celsius), 15.0; !almostEqual(got, want) {
+		t.Fatalf("SubDelta mismatch: got %.10f want %.10f", got, want)
+	}
+}
+
 func TestPiecesConversion(t *testing.T) {
 	assertConversion[quant.Pieces](t, 1, quant.Dozen, 12, quant.Piece)
 	assertConversion[quant.Pieces](t, 1, quant.GreatGross, 12, quant.Gross)
@@ -283,6 +331,18 @@ func TestConvenienceConstructors(t *testing.T) {
 
 	if got := quant.GForces(1).To(quant.MeterPerSecondSquared); !almostEqual(got, 9.80665) {
 		t.Fatalf("GForces constructor mismatch: got %.10f", got)
+	}
+
+	if got := quant.Kiloohms(1).To(quant.Ohm); !almostEqual(got, 1000) {
+		t.Fatalf("Kiloohms constructor mismatch: got %.10f", got)
+	}
+
+	if got := quant.GigabytesPerSecond(1).To(quant.GigabitPerSecond); !almostEqual(got, 8) {
+		t.Fatalf("GigabytesPerSecond constructor mismatch: got %.10f", got)
+	}
+
+	if got := quant.Curies(1).To(quant.Becquerel); !almostEqual(got, 3.7e10) {
+		t.Fatalf("Curies constructor mismatch: got %.10f", got)
 	}
 }
 
