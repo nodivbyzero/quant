@@ -1,5 +1,7 @@
 package quant
 
+import "time"
+
 // Time is the dimension marker for time quantities.
 type Time struct{}
 
@@ -18,3 +20,13 @@ var (
 	Decade      = scaleUnit[Time]{factor: 10 * secondsPerYear}
 	Century     = scaleUnit[Time]{factor: 100 * secondsPerYear}
 )
+
+// FromDuration converts a standard-library duration to a Time quantity.
+func FromDuration(d time.Duration) Quantity[Time] {
+	return Quantity[Time]{value: d.Seconds()}
+}
+
+// ToDuration converts a Time quantity to the nearest representable duration.
+func (q Quantity[Time]) ToDuration() time.Duration {
+	return time.Duration(q.value * float64(time.Second))
+}

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math"
 	"testing"
+	"time"
 
 	"github.com/nodivbyzero/quant"
 )
@@ -384,7 +385,7 @@ func TestJSONMarshalingUsesBaseUnit(t *testing.T) {
 		t.Fatalf("MarshalJSON error: %v", err)
 	}
 
-	if got := string(data); got != "4.535923700000001" {
+	if got := string(data); got != "4.5359237" {
 		t.Fatalf("MarshalJSON mismatch: got %q", got)
 	}
 
@@ -396,6 +397,66 @@ func TestJSONMarshalingUsesBaseUnit(t *testing.T) {
 	if got, want := q.To(quant.Kilogram), 4.5359237; !almostEqual(got, want) {
 		t.Fatalf("UnmarshalJSON mismatch: got %.10f want %.10f", got, want)
 	}
+}
+
+func TestJSONMarshalingInUnit(t *testing.T) {
+	data, err := quant.Pounds(10).MarshalJSONIn(quant.Pound)
+	if err != nil || string(data) != "10" {
+		t.Fatalf("MarshalJSONIn mismatch: data=%q err=%v", data, err)
+	}
+}
+
+func TestDurationInterop(t *testing.T) {
+	d := 1500 * time.Millisecond
+	if got := quant.FromDuration(d).ToDuration(); got != d {
+		t.Fatalf("duration round trip mismatch: got %v want %v", got, d)
+	}
+}
+
+type testWidgets struct{}
+type testDozenWidgets struct{}
+
+func (testDozenWidgets) ToBase(v float64) float64   { return v * 12 }
+func (testDozenWidgets) FromBase(v float64) float64 { return v / 12 }
+
+func TestCustomDimensionAndUnit(t *testing.T) {
+	q := quant.New[testWidgets](2, testDozenWidgets{})
+	if got := q.To(testDozenWidgets{}); !almostEqual(got, 2) {
+		t.Fatalf("custom unit mismatch: got %v", got)
+	}
+}
+
+func TestDerivedProducts(t *testing.T) {
+	if got := quant.Meters(3).MulLength(quant.Meters(4)).To(quant.SquareMeter); !almostEqual(got, 12) {
+		t.Fatalf("area product mismatch: got %v", got)
+	}
+	if got := quant.Watts(100).MulTime(quant.Seconds(2)).To(quant.Joule); !almostEqual(got, 200) {
+		t.Fatalf("energy product mismatch: got %v", got)
+	}
+	if got := quant.Volts(12).MulCurrent(quant.Amperes(2)).To(quant.Watt); !almostEqual(got, 24) {
+		t.Fatalf("power product mismatch: got %v", got)
+	}
+	if got := quant.Amperes(2).MulResistance(quant.Ohms(3)).To(quant.Volt); !almostEqual(got, 6) {
+		t.Fatalf("voltage product mismatch: got %v", got)
+	}
+}
+
+func FuzzJSONUnmarshal(f *testing.F) {
+	f.Add([]byte("1.25"))
+	f.Add([]byte("-0"))
+	f.Fuzz(func(t *testing.T, data []byte) {
+		var q quant.Quantity[quant.Length]
+		_ = json.Unmarshal(data, &q)
+	})
+}
+
+func FuzzTextUnmarshal(f *testing.F) {
+	f.Add([]byte("1.25"))
+	f.Add([]byte("-0"))
+	f.Fuzz(func(t *testing.T, data []byte) {
+		var q quant.Quantity[quant.Length]
+		_ = q.UnmarshalText(data)
+	})
 }
 
 func TestJSONMarshalingInStruct(t *testing.T) {
@@ -502,7 +563,7 @@ func almostEqual(got, want float64) bool {
 	return math.Abs(got-want) < 1e-9
 }
 
-func assertConversion[D any, UFrom quant.Unit[D], UTo quant.Unit[D]](t *testing.T, input float64, from UFrom, want float64, to UTo) {
+func assertConversion[D quant.Dimension, UFrom quant.Unit[D], UTo quant.Unit[D]](t *testing.T, input float64, from UFrom, want float64, to UTo) {
 	t.Helper()
 
 	got := quant.New[D](input, from).To(to)

@@ -15,7 +15,9 @@ It uses phantom types to model dimensions like length, area, mass, volume, flow,
 - Base-unit `String()` formatting and explicit unit-aware `Format(...)`
 - Derived dimensions with type-safe division for built-in combinations like length/time
 - JSON marshaling based on the scalar base-unit value
+- JSON scalar output rounded to 15 significant digits, plus `MarshalJSONIn` for a chosen unit
 - Text marshaling and `database/sql` interop helpers
+- `time.Duration` interop with `FromDuration` and `ToDuration`
 - Support for affine temperature conversions
 - Separate temperature-delta quantities for safe temperature differences
 
@@ -100,12 +102,24 @@ fmt.Println(quant.Pounds(10))                  // 4.5359237 kg
 fmt.Println(quant.Pounds(10).Format(quant.Pound)) // 10 lb
 ```
 
-JSON marshaling stores the scalar value in the base unit for the dimension:
+JSON marshaling stores the scalar value in the base unit for the dimension and
+uses 15 significant digits to avoid exposing binary floating-point noise:
 
 ```go
 data, _ := json.Marshal(quant.Pounds(10))
-fmt.Println(string(data)) // 4.535923700000001
+fmt.Println(string(data)) // 4.5359237
 ```
+
+For an API whose contract is a particular unit, use the explicit helper:
+
+```go
+data, _ := quant.Pounds(10).MarshalJSONIn(quant.Pound)
+fmt.Println(string(data)) // 10
+```
+
+The default scalar form is intentionally compact, but it does not carry a
+unit label. Use a surrounding object or `MarshalJSONIn` when the consumer
+cannot know the base unit from the schema.
 
 Text marshaling follows the same base-unit rule:
 
@@ -270,7 +284,60 @@ duration := quant.Minutes(30)
 speed := distance.Div(duration)
 
 fmt.Println(speed.To(quant.KilometerPerHour)) // 10
+
+area := quant.Meters(3).MulLength(quant.Meters(4))
+energy := quant.Watts(100).MulTime(quant.Seconds(2))
+power := quant.Volts(12).MulCurrent(quant.Amperes(2))
+voltage := quant.Amperes(2).MulResistance(quant.Ohms(3))
 ```
+
+### Why this one?
+
+`quant` is aimed at Go programs that want compile-time separation between
+dimensions without a runtime registry or string parser in the core package.
+Unlike APIs built from dedicated numeric types and one method per unit,
+`quant` uses one generic `Quantity[D]` plus typed units. That makes custom
+dimensions and generic helpers natural, while keeping conversions in small
+value types. The trade-off is that the generic API cannot express every
+physically valid product as an operator overload; named methods such as
+`MulLength` make the supported derived relationships explicit.
+
+`time.Duration` is an excellent standard-library example of a scalar with a
+well-defined unit, but it is intentionally limited to time and does not carry
+dimension information for arithmetic with length, mass, or electrical values.
+`quant` follows that same value-oriented style while extending the type safety
+to physical dimensions.
+
+### Semantics and custom dimensions
+
+`pH` is logarithmic, so `Add`, `Sub`, and scalar multiplication on
+`Quantity[Acidity]` are only numeric operations, not general physical laws.
+`PartsPer` is a ratio and `Pieces` is a count; treat arithmetic on them as
+domain-specific. Absolute temperatures should be changed with `AddDelta` and
+`SubDelta`; `Add` on `Quantity[Temperature]` remains available for generic
+code but is not a physically meaningful temperature operation.
+
+Frequency describes cycles per time, while `AngularVelocity` describes angle
+per time. They have overlapping units (RPM and degrees/second) but represent
+different physical quantities and therefore remain separate dimensions.
+Torque and energy can both have N·m dimensions, but torque is kept separate
+to prevent silently treating a rotational moment as transferred energy.
+
+Custom dimensions are struct markers, and custom units implement `ToBase` and
+`FromBase`:
+
+```go
+type Widget struct{}
+type DozenWidgets struct{}
+
+func (DozenWidgets) ToBase(v float64) float64   { return v * 12 }
+func (DozenWidgets) FromBase(v float64) float64 { return v / 12 }
+
+widgets := quant.New[Widget](2, DozenWidgets{}).To(DozenWidgets{}) // 2
+```
+
+Custom dimensions do not automatically acquire a base-unit symbol for
+`String`; use `To` or `Format` with an application-owned formatter.
 
 ## Supported Dimensions
 

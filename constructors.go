@@ -1,6 +1,6 @@
 package quant
 
-func quantityFrom[D any, U Unit[D]](v float64, u U) Quantity[D] {
+func quantityFrom[D Dimension, U Unit[D]](v float64, u U) Quantity[D] {
 	return New[D](v, u)
 }
 
