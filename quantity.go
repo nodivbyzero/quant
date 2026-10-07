@@ -12,23 +12,23 @@ import (
 //
 // The dimension type parameter is a phantom type used only for compile-time
 // safety.
-type Quantity[D any] struct {
+type Quantity[D Dimension] struct {
 	value float64
 }
 
 // New constructs a quantity from a value expressed in the provided unit.
-func New[D any, U Unit[D]](v float64, u U) Quantity[D] {
-	return Quantity[D]{value: u.toBase(v)}
+func New[D Dimension, U Unit[D]](v float64, u U) Quantity[D] {
+	return Quantity[D]{value: u.ToBase(v)}
 }
 
 // From constructs a quantity from a value expressed in a built-in unit.
-func From[D any](v float64, u BuiltinUnit[D]) Quantity[D] {
-	return Quantity[D]{value: u.toBase(v)}
+func From[D Dimension](v float64, u BuiltinUnit[D]) Quantity[D] {
+	return Quantity[D]{value: u.ToBase(v)}
 }
 
 // To converts the quantity to the provided unit and returns the scalar value.
 func (q Quantity[D]) To(u Unit[D]) float64 {
-	return u.fromBase(q.value)
+	return u.FromBase(q.value)
 }
 
 // Value converts the quantity to the provided unit and returns the scalar value.
@@ -39,7 +39,13 @@ func (q Quantity[D]) Value(u Unit[D]) float64 {
 // MarshalJSON encodes the quantity as its scalar value in the base unit for
 // the dimension.
 func (q Quantity[D]) MarshalJSON() ([]byte, error) {
-	return json.Marshal(q.value)
+	return marshalScalar(q.value)
+}
+
+// MarshalJSONIn encodes the quantity as a scalar in the requested unit. The
+// default MarshalJSON remains a base-unit scalar for compatibility.
+func (q Quantity[D]) MarshalJSONIn(u Unit[D]) ([]byte, error) {
+	return marshalScalar(u.FromBase(q.value))
 }
 
 // UnmarshalJSON decodes a quantity from a scalar value in the base unit for
@@ -50,7 +56,7 @@ func (q *Quantity[D]) UnmarshalJSON(data []byte) error {
 
 // MarshalText encodes the quantity as a base-unit scalar value.
 func (q Quantity[D]) MarshalText() ([]byte, error) {
-	return []byte(strconv.FormatFloat(q.value, 'g', 12, 64)), nil
+	return []byte(formatScalar(q.value)), nil
 }
 
 // UnmarshalText decodes a base-unit scalar value into the quantity.
@@ -76,12 +82,12 @@ func (q Quantity[D]) Format(u Unit[D]) string {
 }
 
 // SQLQuantity wraps a quantity for database/sql interop using base-unit scalar values.
-type SQLQuantity[D any] struct {
+type SQLQuantity[D Dimension] struct {
 	Quantity[D]
 }
 
 // SQL wraps a quantity in a database-friendly adapter.
-func SQL[D any](q Quantity[D]) SQLQuantity[D] {
+func SQL[D Dimension](q Quantity[D]) SQLQuantity[D] {
 	return SQLQuantity[D]{Quantity: q}
 }
 
@@ -109,6 +115,19 @@ func (q Quantity[D]) String() string {
 	}
 
 	return q.Format(u)
+}
+
+func formatScalar(v float64) string {
+	// Fifteen significant digits removes the common binary-float display wart
+	// while retaining useful float64 precision for API payloads.
+	return strconv.FormatFloat(v, 'g', 15, 64)
+}
+
+func marshalScalar(v float64) ([]byte, error) {
+	if math.IsNaN(v) || math.IsInf(v, 0) {
+		return nil, fmt.Errorf("quant: cannot marshal non-finite quantity %v as JSON", v)
+	}
+	return []byte(formatScalar(v)), nil
 }
 
 // Add adds two quantities of the same dimension.
@@ -172,7 +191,7 @@ func (q Quantity[D]) IsNegative() bool {
 }
 
 // Min returns the smaller of two quantities with the same dimension.
-func Min[D any](a, b Quantity[D]) Quantity[D] {
+func Min[D Dimension](a, b Quantity[D]) Quantity[D] {
 	if a.LessThan(b) {
 		return a
 	}
@@ -181,7 +200,7 @@ func Min[D any](a, b Quantity[D]) Quantity[D] {
 }
 
 // Max returns the larger of two quantities with the same dimension.
-func Max[D any](a, b Quantity[D]) Quantity[D] {
+func Max[D Dimension](a, b Quantity[D]) Quantity[D] {
 	if a.GreaterThan(b) {
 		return a
 	}
@@ -189,11 +208,11 @@ func Max[D any](a, b Quantity[D]) Quantity[D] {
 	return b
 }
 
-func baseUnitSymbol[D any]() string {
+func baseUnitSymbol[D Dimension]() string {
 	return unitSymbol(baseUnit[D]())
 }
 
-func baseUnit[D any]() Unit[D] {
+func baseUnit[D Dimension]() Unit[D] {
 	switch any(*new(D)).(type) {
 	case Mass:
 		return any(Kilogram).(Unit[D])

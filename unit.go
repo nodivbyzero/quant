@@ -2,30 +2,35 @@ package quant
 
 import "math"
 
+// Dimension is the set of valid dimension markers. Dimensions are struct
+// types, which prevents accidental types such as int from being used as a
+// Quantity dimension while still allowing user-defined dimensions.
+type Dimension interface {
+	~struct{}
+}
+
 // Unit converts values between a unit and the base unit for a dimension.
-//
-// Implementations should be small value types so conversions stay allocation-free
-// and inline well.
-type Unit[D any] interface {
-	toBase(float64) float64
-	fromBase(float64) float64
+// Implement ToBase and FromBase to define a custom unit outside this package.
+type Unit[D Dimension] interface {
+	ToBase(float64) float64
+	FromBase(float64) float64
 }
 
 // BuiltinUnit is the concrete unit type used by quant's built-in units.
-type BuiltinUnit[D any] struct {
+type BuiltinUnit[D Dimension] struct {
 	factor float64
 	offset float64
 }
 
-func (u BuiltinUnit[D]) toBase(v float64) float64 {
+func (u BuiltinUnit[D]) ToBase(v float64) float64 {
 	return (v + u.offset) * u.factor
 }
 
-func (u BuiltinUnit[D]) fromBase(v float64) float64 {
+func (u BuiltinUnit[D]) FromBase(v float64) float64 {
 	return v/u.factor - u.offset
 }
 
-type scaleUnit[D any] = BuiltinUnit[D]
+type scaleUnit[D Dimension] = BuiltinUnit[D]
 
 const (
 	usSurveyFootInMeters = 1200.0 / 3937.0
