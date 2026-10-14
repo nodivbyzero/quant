@@ -14,6 +14,7 @@ type Dimension interface {
 type Unit[D Dimension] interface {
 	ToBase(float64) float64
 	FromBase(float64) float64
+	Dimension() D
 }
 
 // BuiltinUnit is the concrete unit type used by quant's built-in units.
@@ -28,6 +29,12 @@ func (u BuiltinUnit[D]) ToBase(v float64) float64 {
 
 func (u BuiltinUnit[D]) FromBase(v float64) float64 {
 	return v/u.factor - u.offset
+}
+
+// Dimension identifies the dimension a built-in unit belongs to. It is part
+// of Unit's method set so a unit cannot be passed to a different dimension.
+func (u BuiltinUnit[D]) Dimension() D {
+	return *new(D)
 }
 
 type scaleUnit[D Dimension] = BuiltinUnit[D]

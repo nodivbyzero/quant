@@ -418,6 +418,7 @@ type testDozenWidgets struct{}
 
 func (testDozenWidgets) ToBase(v float64) float64   { return v * 12 }
 func (testDozenWidgets) FromBase(v float64) float64 { return v / 12 }
+func (testDozenWidgets) Dimension() testWidgets     { return testWidgets{} }
 
 func TestCustomDimensionAndUnit(t *testing.T) {
 	q := quant.New[testWidgets](2, testDozenWidgets{})
