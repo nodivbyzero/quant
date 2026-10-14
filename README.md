@@ -332,6 +332,7 @@ type DozenWidgets struct{}
 
 func (DozenWidgets) ToBase(v float64) float64   { return v * 12 }
 func (DozenWidgets) FromBase(v float64) float64 { return v / 12 }
+func (DozenWidgets) Dimension() Widget           { return Widget{} }
 
 widgets := quant.New[Widget](2, DozenWidgets{}).To(DozenWidgets{}) // 2
 ```
