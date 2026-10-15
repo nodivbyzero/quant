@@ -2,6 +2,7 @@ package quant_test
 
 import (
 	"database/sql/driver"
+	"encoding"
 	"encoding/json"
 	"fmt"
 	"math"
@@ -505,6 +506,26 @@ func TestTextMarshalingUsesBaseUnit(t *testing.T) {
 	}
 }
 
+func TestTextAppendAndParseBase(t *testing.T) {
+	data, err := quant.Pounds(10).AppendText([]byte("value="))
+	if err != nil || string(data) != "value=4.5359237" {
+		t.Fatalf("AppendText mismatch: data=%q err=%v", data, err)
+	}
+
+	data = quant.Pounds(10).AppendTextIn(nil, quant.Pound)
+	if string(data) != "10" {
+		t.Fatalf("AppendTextIn mismatch: got %q", data)
+	}
+
+	q, err := quant.ParseBase[quant.Mass]("4.5359237")
+	if err != nil {
+		t.Fatalf("ParseBase error: %v", err)
+	}
+	if got, want := q.To(quant.Kilogram), 4.5359237; !almostEqual(got, want) {
+		t.Fatalf("ParseBase mismatch: got %.10f want %.10f", got, want)
+	}
+}
+
 func TestSQLQuantityInterop(t *testing.T) {
 	value, err := quant.SQL(quant.Kilograms(5)).Value()
 	if err != nil {
@@ -537,6 +558,10 @@ func TestSQLQuantityInterop(t *testing.T) {
 
 func TestSQLQuantityImplementsValuer(t *testing.T) {
 	var _ driver.Valuer = quant.SQL(quant.Kilograms(1))
+}
+
+func TestQuantityImplementsTextAppender(t *testing.T) {
+	var _ encoding.TextAppender = quant.Pounds(1)
 }
 
 func Example_massConversion() {

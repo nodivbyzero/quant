@@ -56,7 +56,19 @@ func (q *Quantity[D]) UnmarshalJSON(data []byte) error {
 
 // MarshalText encodes the quantity as a base-unit scalar value.
 func (q Quantity[D]) MarshalText() ([]byte, error) {
-	return []byte(formatScalar(q.value)), nil
+	return q.AppendText(nil)
+}
+
+// AppendText appends the base-unit scalar representation to dst. It mirrors
+// MarshalText without requiring an intermediate allocation.
+func (q Quantity[D]) AppendText(dst []byte) ([]byte, error) {
+	return strconv.AppendFloat(dst, q.value, 'g', 15, 64), nil
+}
+
+// AppendTextIn appends the scalar representation in the requested unit to dst.
+// The unit symbol is intentionally omitted, matching Format's scalar portion.
+func (q Quantity[D]) AppendTextIn(dst []byte, u Unit[D]) []byte {
+	return strconv.AppendFloat(dst, q.To(u), 'g', 12, 64)
 }
 
 // UnmarshalText decodes a base-unit scalar value into the quantity.
@@ -68,6 +80,17 @@ func (q *Quantity[D]) UnmarshalText(text []byte) error {
 
 	q.value = v
 	return nil
+}
+
+// ParseBase parses a base-unit scalar into a quantity. It does not parse unit
+// names or symbols; use New when the input is expressed in another unit.
+func ParseBase[D Dimension](text string) (Quantity[D], error) {
+	v, err := strconv.ParseFloat(text, 64)
+	if err != nil {
+		return Quantity[D]{}, err
+	}
+
+	return Quantity[D]{value: v}, nil
 }
 
 // Format formats the quantity in the provided unit.

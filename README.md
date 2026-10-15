@@ -17,6 +17,7 @@ It uses phantom types to model dimensions like length, area, mass, volume, flow,
 - JSON marshaling based on the scalar base-unit value
 - JSON scalar output rounded to 15 significant digits, plus `MarshalJSONIn` for a chosen unit
 - Text marshaling and `database/sql` interop helpers
+- Allocation-conscious `AppendText` helpers and base-unit `ParseBase`
 - `time.Duration` interop with `FromDuration` and `ToDuration`
 - Support for affine temperature conversions
 - Separate temperature-delta quantities for safe temperature differences
@@ -53,10 +54,10 @@ Output:
 ## Core API
 
 ```go
-type Quantity[D any] struct
+type Quantity[D Dimension] struct
 
-func New[D any, U Unit[D]](v float64, u U) Quantity[D]
-func From[D any](v float64, u BuiltinUnit[D]) Quantity[D]
+func New[D Dimension, U Unit[D]](v float64, u U) Quantity[D]
+func From[D Dimension](v float64, u BuiltinUnit[D]) Quantity[D]
 
 func (q Quantity[D]) To(u Unit[D]) float64
 func (q Quantity[D]) Value(u Unit[D]) float64
@@ -65,6 +66,9 @@ func (q Quantity[D]) MarshalJSON() ([]byte, error)
 func (q *Quantity[D]) UnmarshalJSON(data []byte) error
 func (q Quantity[D]) MarshalText() ([]byte, error)
 func (q *Quantity[D]) UnmarshalText(text []byte) error
+func (q Quantity[D]) AppendText(dst []byte) ([]byte, error)
+func (q Quantity[D]) AppendTextIn(dst []byte, u Unit[D]) []byte
+func ParseBase[D Dimension](text string) (Quantity[D], error)
 func (q Quantity[D]) Add(other Quantity[D]) Quantity[D]
 func (q Quantity[D]) Sub(other Quantity[D]) Quantity[D]
 func (q Quantity[D]) Mul(scalar float64) Quantity[D]
@@ -127,6 +131,12 @@ Text marshaling follows the same base-unit rule:
 text, _ := quant.Pounds(10).MarshalText()
 fmt.Println(string(text)) // 4.5359237
 ```
+
+For allocation-conscious text output, use `AppendText`; `ParseBase` parses a
+base-unit scalar without introducing unit-name parsing into the core package.
+The existing unit-aware `Format(unit)` method prevents implementing
+`fmt.Formatter` without an API-breaking rename, so formatting in a selected
+unit remains explicit.
 
 For `database/sql`, use the adapter helper:
 
