@@ -35,9 +35,9 @@ func BenchmarkAdd(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		result = result.Add(c)
+		benchmarkQuantity = result.Add(c)
+		result = benchmarkQuantity
 	}
-	benchmarkQuantity = result
 }
 
 func BenchmarkDiv(b *testing.B) {
