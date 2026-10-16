@@ -460,6 +460,43 @@ fmt.Println(poh) // 11
 
 The package favors correctness and simplicity first, while keeping the implementation small and allocation-free in normal use.
 
+## Optional Parsing
+
+The core package does not parse unit names. Import `parse` when string input is
+part of an application's boundary:
+
+```go
+length, err := parse.ParseLength("5 km")
+mass, err := parse.ParseMass("10lb")
+_ = length.To(quant.Meter) // 5000
+_ = mass.To(quant.Kilogram) // 4.5359237
+```
+
+Custom dimensions can provide their own accepted symbols with `parse.UnitSet`:
+
+```go
+type Widget struct{}
+type Box struct{}
+
+func (Box) ToBase(v float64) float64   { return v * 12 }
+func (Box) FromBase(v float64) float64 { return v / 12 }
+func (Box) Dimension() Widget          { return Widget{} }
+
+widgets, err := parse.Parse("2 box", parse.UnitSet[Widget]{"box": Box{}})
+```
+
+## CODATA Constants
+
+`codata` contains selected 2022 CODATA recommended values from NIST. Values
+are plain `float64` constants with their SI units stated in the package docs;
+uncertainties and correlations are intentionally left to the authoritative
+CODATA tables.
+
+```go
+speedOfLight := codata.SpeedOfLight // m/s
+elementaryCharge := codata.ElementaryCharge // C
+```
+
 ## Development
 
 Run tests with:
