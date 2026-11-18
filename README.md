@@ -373,7 +373,7 @@ Custom dimensions do not automatically acquire a base-unit symbol for
 - Electric field: `VoltPerMeter`, `NewtonPerCoulomb`
 - Energy: `WattSecond`, `WattMinute`, `MilliwattHour`, `WattHour`, `KilowattHour`, `MegawattHour`, `GigawattHour`, `Joule`, `Kilojoule`, `Megajoule`, `Gigajoule`
 - Equivalent dose: `Sievert`, `Rem`
-- Force: `Newton`, `Kilonewton`, `PoundForce`, `KilogramForce`
+- Force: `Newton`, `Kilonewton`, `PoundForce`, `OunceForce`, `KilogramForce`
 - Frequency: `Hertz`, `Millihertz`, `Kilohertz`, `Megahertz`, `Gigahertz`, `Terahertz`, `RevolutionPerMinute`, `DegreePerSecond`, `RadianPerSecond`
 - Illuminance: `Lux`, `FootCandle`
 - Inductance: `Henry`, `Millihenry`, `Microhenry`
@@ -402,7 +402,7 @@ Custom dimensions do not automatically acquire a base-unit symbol for
 - Temperature delta: `KelvinDelta`, `CelsiusDelta`, `FahrenheitDelta`, `RankineDelta`
 - Thermal conductivity: `WattPerMeterKelvin`
 - Time: `Nanosecond`, `Microsecond`, `Millisecond`, `Second`, `Minute`, `Hour`, `Day`, `Week`, `Month`, `Year`, `Decade`, `Century`
-- Torque: `NewtonMeter`, `PoundForceFoot`
+- Torque: `NewtonMeter`, `PoundForceFoot`, `OunceForceInch`
 - Voltage: `Volt`, `Millivolt`, `Kilovolt`
 - Volume: `CubicMillimeter`, `CubicCentimeter`, `Milliliter`, `Liter`, `Kiloliter`, `Megaliter`, `Gigaliter`, `CubicMeter`, `CubicKilometer`, `Teaspoon`, `Tablespoon`, `CubicInch`, `FluidOunce`, `Cup`, `Pint`, `Quart`, `Gallon`, `CubicFoot`, `CubicYard`
 - Volume flow rate: `CubicMillimeterPerSecond`, `CubicCentimeterPerSecond`, `MilliliterPerSecond`, `CentiliterPerSecond`, `DeciliterPerSecond`, `LiterPerSecond`, `LiterPerMinute`, `LiterPerHour`, `KiloliterPerSecond`, `KiloliterPerMinute`, `KiloliterPerHour`, `CubicMeterPerSecond`, `CubicMeterPerMinute`, `CubicMeterPerHour`, `CubicKilometerPerSecond`, `TeaspoonPerSecond`, `TablespoonPerSecond`, `CubicInchPerSecond`, `CubicInchPerMinute`, `CubicInchPerHour`, `FluidOuncePerSecond`, `FluidOuncePerMinute`, `FluidOuncePerHour`, `CupPerSecond`, `PintPerSecond`, `PintPerMinute`, `PintPerHour`, `QuartPerSecond`, `GallonPerSecond`, `GallonPerMinute`, `GallonPerHour`, `CubicFootPerSecond`, `CubicFootPerMinute`, `CubicFootPerHour`, `CubicYardPerSecond`, `CubicYardPerMinute`, `CubicYardPerHour`

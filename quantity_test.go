@@ -80,7 +80,8 @@ func TestSpeedConversion(t *testing.T) {
 }
 
 func TestTorqueConversion(t *testing.T) {
-	assertConversion[quant.Torque](t, 1, quant.PoundForceFoot, 1.3558179483314004, quant.NewtonMeter)
+	assertConversion[quant.Torque](t, 1, quant.PoundForceFoot, 1.3558179483314003, quant.NewtonMeter)
+	assertConversion[quant.Torque](t, 1, quant.PoundForceFoot, 192, quant.OunceForceInch)
 }
 
 func TestPaceConversion(t *testing.T) {
@@ -116,7 +117,7 @@ func TestElectricalConversions(t *testing.T) {
 	assertConversion[quant.Power](t, 1, quant.Horsepower, 745.6998715822702, quant.Watt)
 	assertConversion[quant.Power](t, 1, quant.MetricHorsepower, 735.49875, quant.Watt)
 	assertConversion[quant.Power](t, 1, quant.BTUPerSecond, 1055.05585262, quant.Watt)
-	assertConversion[quant.Power](t, 1, quant.FootPoundForcePerSecond, 1.3558179483314004, quant.Watt)
+	assertConversion[quant.Power](t, 1, quant.FootPoundForcePerSecond, 1.3558179483314003, quant.Watt)
 	assertConversion[quant.ApparentPower](t, 1, quant.MegaVoltAmpere, 1000, quant.KiloVoltAmpere)
 	assertConversion[quant.ReactivePower](t, 1, quant.MegaVoltAmpereReactive, 1000, quant.KiloVoltAmpereReactive)
 }
@@ -147,6 +148,8 @@ func TestChargeConversion(t *testing.T) {
 func TestForceConversion(t *testing.T) {
 	assertConversion[quant.Force](t, 1, quant.Kilonewton, 1000, quant.Newton)
 	assertConversion[quant.Force](t, 1, quant.KilogramForce, 9.80665, quant.Newton)
+	assertConversion[quant.Force](t, 1, quant.PoundForce, 4.4482216152605, quant.Newton)
+	assertConversion[quant.Force](t, 1, quant.PoundForce, 16, quant.OunceForce)
 }
 
 func TestAccelerationConversion(t *testing.T) {

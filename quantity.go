@@ -451,6 +451,12 @@ func unitSymbol(u any) string {
 		return "Nm"
 	case any(PoundForceFoot):
 		return "lbf-ft"
+	case any(OunceForceInch):
+		return "ozf-in"
+	case any(PoundForce):
+		return "lbf"
+	case any(OunceForce):
+		return "ozf"
 	case any(KilogramPerCubicMeter):
 		return "kg/m3"
 	case any(GramPerCubicCentimeter):

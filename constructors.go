@@ -245,6 +245,9 @@ func MillimetersPerHour(v float64) Quantity[Speed] { return quantityFrom[Speed](
 // Torque constructors.
 func NewtonMeters(v float64) Quantity[Torque]   { return quantityFrom[Torque](v, NewtonMeter) }
 func PoundForceFeet(v float64) Quantity[Torque] { return quantityFrom[Torque](v, PoundForceFoot) }
+func OunceForceInches(v float64) Quantity[Torque] {
+	return quantityFrom[Torque](v, OunceForceInch)
+}
 
 // Pace constructors.
 func SecondsPerMeter(v float64) Quantity[Pace]     { return quantityFrom[Pace](v, SecondPerMeter) }
@@ -435,6 +438,7 @@ func Picocoulombs(v float64) Quantity[Charge]  { return quantityFrom[Charge](v, 
 func Newtons(v float64) Quantity[Force]        { return quantityFrom[Force](v, Newton) }
 func Kilonewtons(v float64) Quantity[Force]    { return quantityFrom[Force](v, Kilonewton) }
 func PoundsForce(v float64) Quantity[Force]    { return quantityFrom[Force](v, PoundForce) }
+func OuncesForce(v float64) Quantity[Force]    { return quantityFrom[Force](v, OunceForce) }
 func KilogramsForce(v float64) Quantity[Force] { return quantityFrom[Force](v, KilogramForce) }
 
 // Acceleration constructors.
