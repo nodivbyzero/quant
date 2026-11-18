@@ -38,7 +38,7 @@ var (
 	Gigawatt                = scaleUnit[Power]{factor: 1e9}
 	MetricHorsepower        = scaleUnit[Power]{factor: 735.49875}
 	BTUPerSecond            = scaleUnit[Power]{factor: 1055.05585262}
-	FootPoundForcePerSecond = scaleUnit[Power]{factor: 1.3558179483314004}
+	FootPoundForcePerSecond = scaleUnit[Power]{factor: poundForceFootInNewtonMeters}
 	Horsepower              = scaleUnit[Power]{factor: 745.6998715822702}
 )
 
