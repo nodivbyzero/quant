@@ -239,6 +239,7 @@ func MilesPerHour(v float64) Quantity[Speed]       { return quantityFrom[Speed](
 func MeterPerHours(v float64) Quantity[Speed]      { return quantityFrom[Speed](v, MeterPerHour) }
 func Knots(v float64) Quantity[Speed]              { return quantityFrom[Speed](v, Knot) }
 func FeetPerSecond(v float64) Quantity[Speed]      { return quantityFrom[Speed](v, FootPerSecond) }
+func FeetPerMinute(v float64) Quantity[Speed]      { return quantityFrom[Speed](v, FootPerMinute) }
 func InchesPerHour(v float64) Quantity[Speed]      { return quantityFrom[Speed](v, InchPerHour) }
 func MillimetersPerHour(v float64) Quantity[Speed] { return quantityFrom[Speed](v, MillimeterPerHour) }
 

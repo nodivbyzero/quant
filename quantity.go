@@ -447,6 +447,10 @@ func unitSymbol(u any) string {
 		return "mph"
 	case any(MeterPerSecond):
 		return "m/s"
+	case any(FootPerSecond):
+		return "ft/s"
+	case any(FootPerMinute):
+		return "ft/min"
 	case any(NewtonMeter):
 		return "Nm"
 	case any(PoundForceFoot):

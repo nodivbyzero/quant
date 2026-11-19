@@ -395,7 +395,7 @@ Custom dimensions do not automatically acquire a base-unit symbol for
 - Reactive energy: `VoltAmpereReactiveHour`, `MilliVoltAmpereReactiveHour`, `KiloVoltAmpereReactiveHour`, `MegaVoltAmpereReactiveHour`, `GigaVoltAmpereReactiveHour`
 - Reactive power: `VoltAmpereReactive`, `MilliVoltAmpereReactive`, `KiloVoltAmpereReactive`, `MegaVoltAmpereReactive`, `GigaVoltAmpereReactive`
 - Resistance: `Ohm`, `Milliohm`, `Kiloohm`, `Megaohm`
-- Speed: `MeterPerSecond`, `KilometerPerHour`, `MilePerHour`, `MeterPerHour`, `Knot`, `FootPerSecond`, `InchPerHour`, `MillimeterPerHour`
+- Speed: `MeterPerSecond`, `KilometerPerHour`, `MilePerHour`, `MeterPerHour`, `Knot`, `FootPerSecond`, `FootPerMinute`, `InchPerHour`, `MillimeterPerHour`
 - Specific heat capacity: `JoulePerKilogramKelvin`
 - Surface tension: `NewtonPerMeter`, `DynePerCentimeter`
 - Temperature: `Celsius`, `Fahrenheit`, `Kelvin`, `Rankine`

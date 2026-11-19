@@ -77,6 +77,9 @@ func TestSpeedConversion(t *testing.T) {
 	assertConversion[quant.Speed](t, 36, quant.KilometerPerHour, 10, quant.MeterPerSecond)
 	assertConversion[quant.Speed](t, 1, quant.MilePerHour, 1.609344, quant.KilometerPerHour)
 	assertConversion[quant.Speed](t, 1, quant.InchPerHour, 25.4, quant.MillimeterPerHour)
+	assertConversion[quant.Speed](t, 1, quant.MilePerHour, 63360, quant.InchPerHour)
+	assertConversion[quant.Speed](t, 88, quant.FootPerSecond, 60, quant.MilePerHour)
+	assertConversion[quant.Speed](t, 1, quant.MilePerHour, 88, quant.FootPerMinute)
 }
 
 func TestTorqueConversion(t *testing.T) {
@@ -87,6 +90,7 @@ func TestTorqueConversion(t *testing.T) {
 func TestPaceConversion(t *testing.T) {
 	assertConversion[quant.Pace](t, 5, quant.MinutePerKilometer, 0.3, quant.SecondPerMeter)
 	assertConversion[quant.Pace](t, 1, quant.MinutePerMile, 60.0/1609.344, quant.SecondPerMeter)
+	assertConversion[quant.Pace](t, 1, quant.MinutePerMile, 1.0/88.0, quant.SecondPerFoot)
 }
 
 func TestPressureConversion(t *testing.T) {
