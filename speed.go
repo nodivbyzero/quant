@@ -11,6 +11,7 @@ var (
 	MeterPerHour      = scaleUnit[Speed]{factor: 1.0 / 3600.0}
 	Knot              = scaleUnit[Speed]{factor: 1852.0 / 3600.0}
 	FootPerSecond     = scaleUnit[Speed]{factor: 0.3048}
+	FootPerMinute     = scaleUnit[Speed]{factor: 0.3048 / 60.0}
 	InchPerHour       = scaleUnit[Speed]{factor: 0.0254 / 3600.0}
 	MillimeterPerHour = scaleUnit[Speed]{factor: 1e-3 / 3600.0}
 )
