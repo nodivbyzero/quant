@@ -453,7 +453,7 @@ fmt.Println(poh) // 11
 ## Design Notes
 
 - No reflection
-- No string parsing
+- No string parsing in core
 - No runtime registry
 - No `interface{}`
 - No external dependencies
@@ -462,8 +462,14 @@ The package favors correctness and simplicity first, while keeping the implement
 
 ## Optional Parsing
 
-The core package does not parse unit names. Import `parse` when string input is
-part of an application's boundary:
+String parsing is opt-in and lives in `github.com/nodivbyzero/quant/parse`; the
+core package does not parse unit names. The current built-in immutable
+registries cover the built-in dimensions, including length, mass, time,
+temperature, derived mechanics, electrical, chemistry, radiation, photometry,
+and magnetism units. Import `parse` when string input is part of an
+application's boundary. See
+[`parse/PHASE0.md`](parse/PHASE0.md) for the symbol inventory and migration
+notes.
 
 ```go
 length, err := parse.ParseLength("5 km")
@@ -484,6 +490,49 @@ func (Box) Dimension() Widget          { return Widget{} }
 
 widgets, err := parse.Parse("2 box", parse.UnitSet[Widget]{"box": Box{}})
 ```
+
+For new code, prefer an immutable registry and explicit defaults:
+
+```go
+lengths := parse.Lengths().WithDefault(quant.Meter)
+length, err := lengths.Parse("5")
+```
+
+Built-in registries accept canonical symbols case-sensitively and provide
+case-insensitive long-name aliases and plurals. Common spelling variants are
+normalized at the parser boundary: `µ`/`μ` become `u`, `Ω` becomes `Ohm`, and
+degree-prefixed Celsius/Fahrenheit symbols are accepted. Numbers use `.` as
+the decimal separator and may use an exponent; `NaN`, `Inf`, and underscore
+separators are rejected. Temperature differences are parsed separately with
+`parse.ParseTemperatureDelta("5 C-delta")`.
+
+For typed configuration and CLI boundaries, use `parse.Value[D]`. It accepts
+unit-bearing text while keeping the core quantity strongly typed:
+
+```go
+timeout := parse.NewValue(parse.Times())
+if err := timeout.Set("30 s"); err != nil {
+	log.Fatal(err)
+}
+flag.Var(timeout, "timeout", "request timeout")
+
+q, _ := timeout.Quantity()
+_ = q.To(quant.Second)
+```
+
+`parse.Value` implements `encoding.TextMarshaler`,
+`encoding.TextUnmarshaler`, and `flag.Value`, so it can be used by text-based
+configuration loaders and environment-variable adapters. The registry is
+explicit: use `parse.Times().WithDefault(quant.Second)` only when a unitless
+value is intentionally defined to mean seconds.
+
+Compound units are explicit registry entries rather than a general expression
+language. For example, `parse.Speeds()` accepts `km/h`, `ft/s`, and `in/h`,
+while `parse.Paces()` accepts `min/mi`. This keeps parsing predictable and
+allows each dimension to define its valid combinations. A generic compound
+unit constructor is intentionally deferred: affine units such as Celsius
+cannot safely participate in a linear `Per` operation, and the `Unit` interface
+also supports user-defined units whose linearity cannot be inferred.
 
 ## CODATA Constants
 
