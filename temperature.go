@@ -16,10 +16,10 @@ var (
 
 // Temperature delta units.
 var (
-	KelvinDelta     = scaleUnit[TemperatureDelta]{factor: 1}
-	CelsiusDelta    = scaleUnit[TemperatureDelta]{factor: 1}
-	FahrenheitDelta = scaleUnit[TemperatureDelta]{factor: 5.0 / 9.0}
-	RankineDelta    = scaleUnit[TemperatureDelta]{factor: 5.0 / 9.0}
+	KelvinDelta     = &scaleUnit[TemperatureDelta]{factor: 1}
+	CelsiusDelta    = &scaleUnit[TemperatureDelta]{factor: 1}
+	FahrenheitDelta = &scaleUnit[TemperatureDelta]{factor: 5.0 / 9.0}
+	RankineDelta    = &scaleUnit[TemperatureDelta]{factor: 5.0 / 9.0}
 )
 
 // AddDelta adds a temperature difference to an absolute temperature.

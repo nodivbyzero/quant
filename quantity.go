@@ -96,7 +96,7 @@ func ParseBase[D Dimension](text string) (Quantity[D], error) {
 // Format formats the quantity in the provided unit.
 func (q Quantity[D]) Format(u Unit[D]) string {
 	value := strconv.FormatFloat(q.To(u), 'g', 12, 64)
-	symbol := unitSymbol(u)
+	symbol := UnitSymbol(u)
 	if symbol == "" {
 		return value
 	}
@@ -232,7 +232,7 @@ func Max[D Dimension](a, b Quantity[D]) Quantity[D] {
 }
 
 func baseUnitSymbol[D Dimension]() string {
-	return unitSymbol(baseUnit[D]())
+	return UnitSymbol(baseUnit[D]())
 }
 
 func baseUnit[D Dimension]() Unit[D] {
@@ -351,7 +351,10 @@ func baseUnit[D Dimension]() Unit[D] {
 	}
 }
 
-func unitSymbol(u any) string {
+// UnitSymbol returns the canonical symbol for a built-in unit. It returns an
+// empty string for custom units and units that do not have a canonical symbol.
+// The optional parse package uses this function as its symbol source.
+func UnitSymbol(u any) string {
 	switch any(u) {
 	case any(Microgram):
 		return "mcg"
@@ -435,6 +438,12 @@ func unitSymbol(u any) string {
 		return "decade"
 	case any(Century):
 		return "century"
+	case any(Nanosecond):
+		return "ns"
+	case any(Microsecond):
+		return "us"
+	case any(Millisecond):
+		return "ms"
 	case any(Liter):
 		return "l"
 	case any(LiterPerSecond):
@@ -451,6 +460,10 @@ func unitSymbol(u any) string {
 		return "ft/s"
 	case any(FootPerMinute):
 		return "ft/min"
+	case any(InchPerHour):
+		return "in/h"
+	case any(MillimeterPerHour):
+		return "mm/h"
 	case any(NewtonMeter):
 		return "Nm"
 	case any(PoundForceFoot):
@@ -559,6 +572,8 @@ func unitSymbol(u any) string {
 		return "lm"
 	case any(Candela):
 		return "cd"
+	case any(Lux):
+		return "lx"
 	case any(Weber):
 		return "Wb"
 	case any(Maxwell):
@@ -643,6 +658,146 @@ func unitSymbol(u any) string {
 		return "pcs"
 	case any(Ratio):
 		return "ratio"
+	case any(SquareMillimeter):
+		return "mm2"
+	case any(SquareCentimeter):
+		return "cm2"
+	case any(SquareMeter):
+		return "m2"
+	case any(Hectare):
+		return "ha"
+	case any(SquareKilometer):
+		return "km2"
+	case any(SquareInch):
+		return "in2"
+	case any(SquareFoot):
+		return "ft2"
+	case any(Acre):
+		return "acre"
+	case any(SquareMile):
+		return "mi2"
+	case any(CubicMillimeter):
+		return "mm3"
+	case any(CubicCentimeter):
+		return "cm3"
+	case any(Milliliter):
+		return "ml"
+	case any(Kiloliter):
+		return "kl"
+	case any(Megaliter):
+		return "Ml"
+	case any(Gigaliter):
+		return "Gl"
+	case any(CubicMeter):
+		return "m3"
+	case any(CubicKilometer):
+		return "km3"
+	case any(Teaspoon):
+		return "tsp"
+	case any(Tablespoon):
+		return "tbsp"
+	case any(CubicInch):
+		return "in3"
+	case any(FluidOunce):
+		return "fl-oz"
+	case any(Cup):
+		return "cup"
+	case any(Pint):
+		return "pt"
+	case any(Quart):
+		return "qt"
+	case any(Gallon):
+		return "gal"
+	case any(CubicFoot):
+		return "ft3"
+	case any(CubicYard):
+		return "yd3"
+	case any(Hertz):
+		return "Hz"
+	case any(Kilohertz):
+		return "kHz"
+	case any(Megahertz):
+		return "MHz"
+	case any(Gigahertz):
+		return "GHz"
+	case any(RevolutionPerMinute):
+		return "rpm"
+	case any(DegreePerSecond):
+		return "deg/s"
+	case any(RadianPerSecond):
+		return "rad/s"
+	case any(Kilonewton):
+		return "kN"
+	case any(KilogramForce):
+		return "kgf"
+	case any(Hectopascal):
+		return "hPa"
+	case any(Kilopascal):
+		return "kPa"
+	case any(Megapascal):
+		return "MPa"
+	case any(Torr):
+		return "Torr"
+	case any(MillimeterOfMercury):
+		return "mmHg"
+	case any(Kilojoule):
+		return "kJ"
+	case any(Megajoule):
+		return "MJ"
+	case any(Gigajoule):
+		return "GJ"
+	case any(KilowattHour):
+		return "kWh"
+	case any(WattHour):
+		return "Wh"
+	case any(Milliwatt):
+		return "mW"
+	case any(Megawatt):
+		return "MW"
+	case any(Gigawatt):
+		return "GW"
+	case any(Volt):
+		return "V"
+	case any(Millivolt):
+		return "mV"
+	case any(Kilovolt):
+		return "kV"
+	case any(Ampere):
+		return "A"
+	case any(Milliampere):
+		return "mA"
+	case any(Kiloampere):
+		return "kA"
+	case any(Kilobit):
+		return "kbit"
+	case any(Megabit):
+		return "Mbit"
+	case any(Gigabit):
+		return "Gbit"
+	case any(Terabit):
+		return "Tbit"
+	case any(Kilobyte):
+		return "kB"
+	case any(Megabyte):
+		return "MB"
+	case any(Gigabyte):
+		return "GB"
+	case any(Terabyte):
+		return "TB"
+	case any(Mebibyte):
+		return "MiB"
+	case any(Gibibyte):
+		return "GiB"
+	case any(Tebibyte):
+		return "TiB"
+	case any(CubicMeterPerSecond):
+		return "m3/s"
+	case any(MinutePerMile):
+		return "min/mi"
+	case any(PPM):
+		return "ppm"
+	case any(Dozen):
+		return "dozen"
 	default:
 		return ""
 	}
